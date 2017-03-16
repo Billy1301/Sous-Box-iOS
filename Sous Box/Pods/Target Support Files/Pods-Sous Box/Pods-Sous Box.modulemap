@@ -1,0 +1,6 @@
+framework module Pods_Sous_Box {
+  umbrella header "Pods-Sous Box-umbrella.h"
+
+  export *
+  module * { export * }
+}
