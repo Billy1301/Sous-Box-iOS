@@ -30,7 +30,7 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="v4e-ac-NuE" id="ZVQ-PB-lCh">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="79.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="79.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aXg-r0-90X">
@@ -96,7 +96,7 @@
         <scene sceneID="PLW-pG-4ox">
             <objects>
                 <navigationController id="Nla-2j-jdt" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="tFQ-fe-euD">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tFQ-fe-euD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -121,17 +121,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IuQ-YR-Omz">
-                                <rect key="frame" x="48" y="92" width="318" height="322"/>
+                                <rect key="frame" x="48" y="106" width="318" height="318"/>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="mzy-g3-eft">
-                                <rect key="frame" x="74.666666666666686" y="474" width="265" height="120"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="mzy-g3-eft">
+                                <rect key="frame" x="72.666666666666686" y="474" width="270" height="120"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hg9-JA-XVz">
                                         <rect key="frame" x="0.0" y="0.0" width="119.99999999999999" height="120"/>
                                         <state key="normal" image="dislike"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TdC-mT-2np">
-                                        <rect key="frame" x="145" y="0.0" width="120" height="120"/>
+                                        <rect key="frame" x="150" y="0.0" width="120" height="120"/>
                                         <state key="normal" image="like"/>
                                     </button>
                                 </subviews>
@@ -139,8 +139,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="mzy-g3-eft" firstAttribute="top" secondItem="IuQ-YR-Omz" secondAttribute="bottom" constant="60" id="96p-PA-2SB"/>
-                            <constraint firstItem="IuQ-YR-Omz" firstAttribute="top" secondItem="ebN-Rf-eqW" secondAttribute="bottom" constant="28" id="9cj-NY-ona"/>
+                            <constraint firstItem="mzy-g3-eft" firstAttribute="top" secondItem="IuQ-YR-Omz" secondAttribute="bottom" constant="50" id="96p-PA-2SB"/>
+                            <constraint firstItem="IuQ-YR-Omz" firstAttribute="top" secondItem="ebN-Rf-eqW" secondAttribute="bottom" constant="42" id="9cj-NY-ona"/>
                             <constraint firstItem="MZh-mm-dH3" firstAttribute="top" secondItem="mzy-g3-eft" secondAttribute="bottom" constant="93" id="GfV-bM-G2g"/>
                             <constraint firstAttribute="trailingMargin" secondItem="IuQ-YR-Omz" secondAttribute="trailing" constant="28" id="WSl-qv-zNY"/>
                             <constraint firstItem="mzy-g3-eft" firstAttribute="centerX" secondItem="f0i-A8-3dM" secondAttribute="centerX" id="kCT-3s-KbT"/>
@@ -215,7 +215,7 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XkQ-Vz-1vq" id="41n-QC-pcX">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="79.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="79.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GZn-B5-SYt">

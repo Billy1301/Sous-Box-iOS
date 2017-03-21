@@ -9,14 +9,20 @@
 import Foundation
 import Alamofire
 
-class Spoonacular {
-    
-    private var _title: String!
-    private var _id: Int!
-    private var _readyInMinutes: String!
-    private var _image: String!
-    private var _imageUrls: String!
-    
-    
-    
-}
+
+let URL_BASE = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/"
+let URL_SEARCH = "search?instructionsRequired=false&limitLicense=false&number=100&offset=0&query=\(URL_SEARCH_QUERY)"
+var URL_SEARCH_QUERY = "beef"
+
+let URL_GET_RECIPE = "\(URL_GET_ID)/information?includeNutrition=false"
+var URL_GET_ID = "479101"
+
+
+let API_KEY = "AgwPCi7s2gmshqMYcdLRdN9Wd2yXp1hMV3LjsnZXU7PzTroW1Z"
+let headers: HTTPHeaders = [
+    "X-Mashape-Key": "\(API_KEY)",
+//    "Authorization": "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==\(API_KEY)",
+    "Accept": "application/json"
+]
+
+typealias DownloadComplete = () -> ()

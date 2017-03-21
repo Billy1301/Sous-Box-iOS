@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		15B13A9BD3D26B91D30A1B84 /* Pods_Sous_Box.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1002E0F1BC85F31A2A1A3E /* Pods_Sous_Box.framework */; };
+		280785B61E81ABBA00A08433 /* SpoonClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280785B51E81ABBA00A08433 /* SpoonClient.swift */; };
 		2880013D1E806BEE00877620 /* RecipeCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880013C1E806BEE00877620 /* RecipeCellView.swift */; };
 		2880013F1E806D9500877620 /* RecipeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880013E1E806D9500877620 /* RecipeListViewController.swift */; };
 		288001411E80704700877620 /* SpoonConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288001401E80704700877620 /* SpoonConstants.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		280785B51E81ABBA00A08433 /* SpoonClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpoonClient.swift; sourceTree = "<group>"; };
 		2880013C1E806BEE00877620 /* RecipeCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCellView.swift; sourceTree = "<group>"; };
 		2880013E1E806D9500877620 /* RecipeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeListViewController.swift; sourceTree = "<group>"; };
 		288001401E80704700877620 /* SpoonConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpoonConstants.swift; sourceTree = "<group>"; };
@@ -52,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				288001401E80704700877620 /* SpoonConstants.swift */,
+				280785B51E81ABBA00A08433 /* SpoonClient.swift */,
 			);
 			name = Spoonacular;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 			files = (
 				288001411E80704700877620 /* SpoonConstants.swift in Sources */,
 				2880013F1E806D9500877620 /* RecipeListViewController.swift in Sources */,
+				280785B61E81ABBA00A08433 /* SpoonClient.swift in Sources */,
 				2880013D1E806BEE00877620 /* RecipeCellView.swift in Sources */,
 				288001431E808FCE00877620 /* SavedRecipeCell.swift in Sources */,
 				28D3BCC31E7B3D8400F98E06 /* TabBarViewController.swift in Sources */,
