@@ -174,10 +174,10 @@
             </objects>
             <point key="canvasLocation" x="-30" y="259"/>
         </scene>
-        <!--Preferences-->
+        <!--Setting-->
         <scene sceneID="hOM-ND-IkW">
             <objects>
-                <viewController id="KIg-ru-SAM" sceneMemberID="viewController">
+                <viewController id="KIg-ru-SAM" customClass="SettingViewController" customModule="Sous_Box" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ofy-3H-w0G"/>
                         <viewControllerLayoutGuide type="bottom" id="wOj-Yw-Jaf"/>
@@ -187,12 +187,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Preferences" id="pRw-4p-vnl"/>
+                    <tabBarItem key="tabBarItem" title="Setting" id="pRw-4p-vnl"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jbd-k9-qyG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="282" y="1227"/>
+            <point key="canvasLocation" x="281.15942028985512" y="1226.9021739130435"/>
         </scene>
         <!--Saved Recipes-->
         <scene sceneID="Xco-TP-jFY">

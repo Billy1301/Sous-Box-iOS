@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		15B13A9BD3D26B91D30A1B84 /* Pods_Sous_Box.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1002E0F1BC85F31A2A1A3E /* Pods_Sous_Box.framework */; };
 		280785B61E81ABBA00A08433 /* SpoonClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280785B51E81ABBA00A08433 /* SpoonClient.swift */; };
+		2876D3831E81CD7F00134CC2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2876D3821E81CD7F00134CC2 /* GoogleService-Info.plist */; };
+		2876D3871E81DEA200134CC2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2876D3861E81DEA200134CC2 /* Default-568h@2x.png */; };
+		2876D3891E81DF4A00134CC2 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2876D3881E81DF4A00134CC2 /* SettingViewController.swift */; };
 		2880013D1E806BEE00877620 /* RecipeCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880013C1E806BEE00877620 /* RecipeCellView.swift */; };
 		2880013F1E806D9500877620 /* RecipeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880013E1E806D9500877620 /* RecipeListViewController.swift */; };
 		288001411E80704700877620 /* SpoonConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288001401E80704700877620 /* SpoonConstants.swift */; };
@@ -22,6 +25,10 @@
 
 /* Begin PBXFileReference section */
 		280785B51E81ABBA00A08433 /* SpoonClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpoonClient.swift; sourceTree = "<group>"; };
+		2876D3821E81CD7F00134CC2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2876D3861E81DEA200134CC2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		2876D3881E81DF4A00134CC2 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		2876D38A1E81DF8E00134CC2 /* Sous Box.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Sous Box.entitlements"; sourceTree = "<group>"; };
 		2880013C1E806BEE00877620 /* RecipeCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCellView.swift; sourceTree = "<group>"; };
 		2880013E1E806D9500877620 /* RecipeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeListViewController.swift; sourceTree = "<group>"; };
 		288001401E80704700877620 /* SpoonConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpoonConstants.swift; sourceTree = "<group>"; };
@@ -69,6 +76,7 @@
 		28D3BCB41E7B3D8400F98E06 = {
 			isa = PBXGroup;
 			children = (
+				2876D3861E81DEA200134CC2 /* Default-568h@2x.png */,
 				28D3BCBF1E7B3D8400F98E06 /* Sous Box */,
 				28D3BCBE1E7B3D8400F98E06 /* Products */,
 				50A617B95F80C73517EC92B8 /* Pods */,
@@ -87,6 +95,7 @@
 		28D3BCBF1E7B3D8400F98E06 /* Sous Box */ = {
 			isa = PBXGroup;
 			children = (
+				2876D38A1E81DF8E00134CC2 /* Sous Box.entitlements */,
 				28D3BCD41E7B3DAD00F98E06 /* Model */,
 				28D3BCD31E7B3DA200F98E06 /* View */,
 				28D3BCD21E7B3D9000F98E06 /* Controller */,
@@ -95,6 +104,7 @@
 				28D3BCC71E7B3D8400F98E06 /* Assets.xcassets */,
 				28D3BCC91E7B3D8400F98E06 /* LaunchScreen.storyboard */,
 				28D3BCCC1E7B3D8400F98E06 /* Info.plist */,
+				2876D3821E81CD7F00134CC2 /* GoogleService-Info.plist */,
 			);
 			path = "Sous Box";
 			sourceTree = "<group>";
@@ -104,6 +114,7 @@
 			children = (
 				28D3BCC21E7B3D8400F98E06 /* TabBarViewController.swift */,
 				2880013E1E806D9500877620 /* RecipeListViewController.swift */,
+				2876D3881E81DF4A00134CC2 /* SettingViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -180,6 +191,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = BQ64AM57S3;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -207,7 +223,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				28D3BCCB1E7B3D8400F98E06 /* LaunchScreen.storyboard in Resources */,
+				2876D3831E81CD7F00134CC2 /* GoogleService-Info.plist in Resources */,
 				28D3BCC81E7B3D8400F98E06 /* Assets.xcassets in Resources */,
+				2876D3871E81DEA200134CC2 /* Default-568h@2x.png in Resources */,
 				28D3BCC61E7B3D8400F98E06 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,6 +288,7 @@
 				288001411E80704700877620 /* SpoonConstants.swift in Sources */,
 				2880013F1E806D9500877620 /* RecipeListViewController.swift in Sources */,
 				280785B61E81ABBA00A08433 /* SpoonClient.swift in Sources */,
+				2876D3891E81DF4A00134CC2 /* SettingViewController.swift in Sources */,
 				2880013D1E806BEE00877620 /* RecipeCellView.swift in Sources */,
 				288001431E808FCE00877620 /* SavedRecipeCell.swift in Sources */,
 				28D3BCC31E7B3D8400F98E06 /* TabBarViewController.swift in Sources */,
@@ -395,7 +414,12 @@
 			baseConfigurationReference = D3716AC67C37BAB064626663 /* Pods-Sous Box.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Sous Box/Sous Box.entitlements";
 				DEVELOPMENT_TEAM = BQ64AM57S3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Sous Box/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "billy1301.Sous-Box";
@@ -409,7 +433,12 @@
 			baseConfigurationReference = 5F61028756412B01258EAE8B /* Pods-Sous Box.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Sous Box/Sous Box.entitlements";
 				DEVELOPMENT_TEAM = BQ64AM57S3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Sous Box/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "billy1301.Sous-Box";

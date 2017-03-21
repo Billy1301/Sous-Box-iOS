@@ -113,6 +113,8 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
+  - FBSDKCoreKit
+  - FBSDKLoginKit
   - Firebase/Core
   - Firebase/Database
   - Firebase/RemoteConfig
@@ -145,6 +147,6 @@ SPEC CHECKSUMS:
   TwitterCore: fbdbeaf6d2d20cf7c7aa4136fe5173c1c85df2e2
   TwitterKit: 97e729ceea041d174126235bf6ff67dcf37772d4
 
-PODFILE CHECKSUM: a8a8245601a854e8122e0a6b2f5ee46ba4f7bdbd
+PODFILE CHECKSUM: bf638eed40a80dee22bd18e13adb83d233c4ba52
 
 COCOAPODS: 1.1.1

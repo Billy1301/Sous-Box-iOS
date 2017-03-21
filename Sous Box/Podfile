@@ -11,5 +11,7 @@ target 'Sous Box' do
  pod 'Firebase/RemoteConfig'
  pod 'FirebaseUI'
  pod 'Alamofire', '~> 4.0'
+ pod 'FBSDKCoreKit'
+ pod 'FBSDKLoginKit'
 
 end
