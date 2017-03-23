@@ -413,6 +413,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D3716AC67C37BAB064626663 /* Pods-Sous Box.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Sous Box/Sous Box.entitlements";
 				DEVELOPMENT_TEAM = BQ64AM57S3;
@@ -432,6 +433,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5F61028756412B01258EAE8B /* Pods-Sous Box.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Sous Box/Sous Box.entitlements";
 				DEVELOPMENT_TEAM = BQ64AM57S3;

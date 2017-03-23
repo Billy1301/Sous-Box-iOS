@@ -11,24 +11,21 @@ import FBSDKLoginKit
 
 class SettingViewController: UIViewController, FBSDKLoginButtonDelegate {
 
-    
-    
+    @IBOutlet weak var facebookButton: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let FBloginBtn = FBSDKLoginButton()
-        view.addSubview(FBloginBtn)
-        
-        FBloginBtn.frame = CGRect(x: 16, y: 50, width: view.frame.width - 32, height: 50)
+        facebookButton.addSubview(FBloginBtn)
+        FBloginBtn.frame = CGRect(x: 0, y: 0, width: view.frame.width - 32, height: 50)
         FBloginBtn.delegate = self
         
     }
 
     
-   
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        print("log out of fb")
+//        print("log out of fb")
     }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
@@ -36,8 +33,7 @@ class SettingViewController: UIViewController, FBSDKLoginButtonDelegate {
             print(error)
             return
         }
-        
-        print("logged in success")
+//        print("logged in success")
     }
     
 }
