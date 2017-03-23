@@ -23,4 +23,12 @@ class Spoonacular {
     private var _name: String!
     
     
+    var title: String {
+        if _title == nil {
+            _title = ""
+        }
+        return _title
+    }
+    
+    
 }
