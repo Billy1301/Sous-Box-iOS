@@ -15,6 +15,8 @@ class RecipeCellView: UITableViewCell {
     @IBOutlet weak var recipeTitle: UILabel!
     
     
-    
+    func configureCell(spoon: Spoonacular) {
+        recipeTitle.text = "\(spoon.title)"
+    }
 
 }
