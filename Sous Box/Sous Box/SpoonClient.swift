@@ -120,5 +120,16 @@ class Spoonacular {
     }
     
     
+    func getRecipeIngredients(completed: @escaping DownloadComplete) {
+        
+        let getRecipeURL = URL(string: GET_RECIPE_URL)!
+        Alamofire.request(getRecipeURL, method: .get, headers: HEADERS).responseJSON { response in
+            
+            let result = response.result
+            print(response)
+        }
+        
+    }
+    
     
 }

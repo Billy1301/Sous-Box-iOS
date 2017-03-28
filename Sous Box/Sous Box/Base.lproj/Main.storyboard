@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Recipes List-->
+        <!--Recipe List-->
         <scene sceneID="XDh-at-O71">
             <objects>
                 <viewController id="ACe-Wb-PYR" customClass="RecipeListViewController" customModule="Sous_Box" customModuleProvider="target" sceneMemberID="viewController">
@@ -86,14 +86,14 @@
                             <constraint firstAttribute="trailing" secondItem="KKG-JC-DGn" secondAttribute="trailing" id="ubM-yn-3sY"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Recipes List" id="7cJ-aD-g4f"/>
+                    <tabBarItem key="tabBarItem" title="Recipe List" image="lists" selectedImage="lists" id="7cJ-aD-g4f"/>
                     <connections>
                         <outlet property="tableView" destination="KKG-JC-DGn" id="INK-np-F6x"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7hM-ir-BhI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="974" y="619"/>
+            <point key="canvasLocation" x="973" y="758"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PLW-pG-4ox">
@@ -163,7 +163,7 @@
                             <constraint firstItem="IuQ-YR-Omz" firstAttribute="leading" secondItem="f0i-A8-3dM" secondAttribute="leadingMargin" constant="28" id="xRo-nA-gW1"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Random" id="M47-1I-dGq"/>
+                    <tabBarItem key="tabBarItem" title="Random" image="random" selectedImage="random" id="M47-1I-dGq"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WxR-WD-wHF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -315,5 +315,7 @@
     <resources>
         <image name="dislike" width="120" height="120"/>
         <image name="like" width="120" height="120"/>
+        <image name="lists" width="23" height="23"/>
+        <image name="random" width="28" height="30"/>
     </resources>
 </document>

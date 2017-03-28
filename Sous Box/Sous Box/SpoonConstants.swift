@@ -11,7 +11,7 @@ import Alamofire
 
 
 let URL_BASE = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/"
-let URL_SEARCH = "search?instructionsRequired=false&limitLicense=false&number=100&offset=0&query=\(URL_SEARCH_QUERY)"
+let URL_SEARCH = "search?instructionsRequired=false&limitLicense=false&number=25&offset=0&query=\(URL_SEARCH_QUERY)"
 var URL_SEARCH_QUERY = "beef"
 
 let URL_GET_RECIPE = "\(URL_GET_ID)/information?includeNutrition=false"
@@ -30,6 +30,7 @@ let HEADERS: HTTPHeaders = [
 
 
 let CURRENT_SEARCH_URL = URL_BASE + URL_SEARCH
+let GET_RECIPE_URL = URL_BASE + URL_GET_RECIPE
 
 
 typealias DownloadComplete = () -> ()
