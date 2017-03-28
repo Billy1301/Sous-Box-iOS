@@ -8,16 +8,23 @@
 
 import UIKit
 
-class RecipeListViewController: UIViewController {
+class RecipeListViewController: UIViewController, UITabBarDelegate, UITableViewDataSource {
 
     var spoon: Spoonacular!
     var spoons = [Spoonacular]()
+    var spoonacular = Spoonacular()
+    
+    @IBOutlet weak var tableView: UITableView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        tableView.dataSource = self
+        
+        spoonacular.downloadRecipeData {
+            //setup UI to load data
+        }
     }
 
   

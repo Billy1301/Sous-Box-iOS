@@ -21,10 +21,15 @@ let URL_IMAGE_BASE = "https://webknox.com/recipeImages/"
 
 
 let API_KEY = "AgwPCi7s2gmshqMYcdLRdN9Wd2yXp1hMV3LjsnZXU7PzTroW1Z"
-let headers: HTTPHeaders = [
+
+let HEADERS: HTTPHeaders = [
     "X-Mashape-Key": "\(API_KEY)",
 //    "Authorization": "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==\(API_KEY)",
     "Accept": "application/json"
 ]
+
+
+let CURRENT_SEARCH_URL = URL_BASE + URL_SEARCH
+
 
 typealias DownloadComplete = () -> ()
