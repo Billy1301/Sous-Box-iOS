@@ -24,7 +24,6 @@ class Spoonacular {
     private var _ingredientImage: String!
     private var _name: String!
     
-    
     var title: String {
         if _title == nil {
             _title = ""
@@ -81,43 +80,61 @@ class Spoonacular {
         return _name
     }
     
-    
-    func downloadRecipeData(completed: @escaping DownloadComplete) {
+    init(getRecipeLists: Dictionary<String, AnyObject>) {
         
-        let currentRecipeURL = URL(string: CURRENT_SEARCH_URL)!
-        Alamofire.request(currentRecipeURL, method: .get, headers: HEADERS).responseJSON { response in
-            
-            let result = response.result
-            
-//            print(response)
-            
-            if let dict = result.value as? Dictionary<String, AnyObject> {
-            
-                if let results = dict["results"] as? Dictionary<String, AnyObject> {
+        if let results = getRecipeLists["results"] as? Dictionary<String, AnyObject> {
                     
-                    if let id = results["id"] as? Int {
-                        self._id = id
-                    }
+            if let id = results["id"] as? Int {
+                self._id = id
+            }
                     
-                    if let title = results["title"] as? String {
-                        self._title = title
-                    }
+            if let title = results["title"] as? String {
+                self._title = title
+            }
                     
-                    if let image = results["image"] as? String {
-                        self._image = image
-                    }
+            if let image = results["image"] as? String {
+                self._image = image
+            }
                     
-                    if let readyInMinutes = results["readyInMinutes"] as? Int {
-                        self._readyInMinutes = readyInMinutes
-                    }
-                    
-                }
+            if let readyInMinutes = results["readyInMinutes"] as? Int {
+                self._readyInMinutes = readyInMinutes
             }
         }
-        
-        completed()
-        
     }
+    
+//    func downloadRecipeData(completed: @escaping DownloadComplete) {
+//        
+//        let currentRecipeURL = URL(string: CURRENT_SEARCH_URL)!
+//        Alamofire.request(currentRecipeURL, method: .get, headers: HEADERS).responseJSON { response in
+//            
+//            let result = response.result
+//            
+//            if let dict = result.value as? Dictionary<String, AnyObject> {
+//            
+//                if let results = dict["results"] as? Dictionary<String, AnyObject> {
+//                    
+//                    if let id = results["id"] as? Int {
+//                        self._id = id
+//                    }
+//                    
+//                    if let title = results["title"] as? String {
+//                        self._title = title
+//                    }
+//                    
+//                    if let image = results["image"] as? String {
+//                        self._image = URL_IMAGE_BASE + image
+//                    }
+//                    
+//                    if let readyInMinutes = results["readyInMinutes"] as? Int {
+//                        self._readyInMinutes = readyInMinutes
+//                    }
+//                }
+//            }
+//        }
+//        
+//        completed()
+//        
+//    }
     
     
     func getRecipeIngredients(completed: @escaping DownloadComplete) {
@@ -130,6 +147,9 @@ class Spoonacular {
         }
         
     }
+    
+    
+
     
     
 }

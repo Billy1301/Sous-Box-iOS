@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import Alamofire
 
 class RecipeCellView: UITableViewCell {
 
@@ -15,11 +16,13 @@ class RecipeCellView: UITableViewCell {
     @IBOutlet weak var recipePhoto: UIImageView!
     @IBOutlet weak var recipeTitle: UILabel!
     
+    
     func configureCell(spoon: Spoonacular) {
         let photoURL = URL(string: "\(URL_IMAGE_BASE)\(spoon.image)")
         
         recipeTitle.text = "\(spoon.title)"
         recipePhoto.kf.setImage(with: photoURL)
+        
     }
 
 }
