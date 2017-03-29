@@ -18,10 +18,14 @@ class RecipeCellView: UITableViewCell {
     
     
     func configureCell(spoon: Spoonacular) {
-        let photoURL = URL(string: "\(URL_IMAGE_BASE)\(spoon.image)")
         
+        let photoURL = URL(string: "\(URL_IMAGE_BASE)\(spoon.image)")
         recipeTitle.text = "\(spoon.title)"
-        recipePhoto.kf.setImage(with: photoURL)
+        if spoon.image == "" {
+            recipePhoto.image = #imageLiteral(resourceName: "noImage")
+        } else {
+            recipePhoto.kf.setImage(with: photoURL)
+        }
         
     }
 

@@ -13,16 +13,16 @@ import Kingfisher
 class Spoonacular {
     
     //search recipe constants
-    private var _title: String!
-    private var _id: Int!
-    private var _readyInMinutes: Int!
-    private var _image: String!
-    private var _imageUrls: String!
+    var _title: String!
+    var _id: Int!
+    var _readyInMinutes: Int!
+    var _image: String!
+    var _imageUrls: String!
     
     //get recipe constants
-    private var _originalString: String!
-    private var _ingredientImage: String!
-    private var _name: String!
+    var _originalString: String!
+    var _ingredientImage: String!
+    var _name: String!
     
     var title: String {
         if _title == nil {
@@ -82,79 +82,29 @@ class Spoonacular {
     
     init(getRecipeLists: Dictionary<String, AnyObject>) {
         
-        if let results = getRecipeLists["results"] as? Dictionary<String, AnyObject> {
-                    
-            if let id = results["id"] as? Int {
+            if let id = getRecipeLists["id"] as? Int {
                 self._id = id
             }
                     
-            if let title = results["title"] as? String {
+            if let title = getRecipeLists["title"] as? String {
                 self._title = title
             }
                     
-            if let image = results["image"] as? String {
+            if let image = getRecipeLists["image"] as? String {
                 self._image = image
             }
                     
-            if let readyInMinutes = results["readyInMinutes"] as? Int {
+            if let readyInMinutes = getRecipeLists["readyInMinutes"] as? Int {
                 self._readyInMinutes = readyInMinutes
             }
             
-            if let imageUrls = results["imageUrls"] as? String {
+            if let imageUrls = getRecipeLists["imageUrls"] as? String {
                 self._imageUrls = imageUrls
             }
-        }
     }
     
-    func downloadRecipeData(completed: @escaping DownloadComplete) {
-        
-        let currentRecipeURL = URL(string: CURRENT_SEARCH_URL)!
-        Alamofire.request(currentRecipeURL, method: .get, headers: HEADERS).responseJSON { response in
-            
-            let result = response.result
-            print(response)
-            
-            if let dict = result.value as? Dictionary<String, AnyObject> {
-            
-                if let results = dict["results"] as? Dictionary<String, AnyObject> {
-                    
-                    if let id = results["id"] as? Int {
-                        self._id = id
-                    }
-                    
-                    if let title = results["title"] as? String {
-                        self._title = title
-                    }
-                    
-                    if let image = results["image"] as? String {
-                        self._image = URL_IMAGE_BASE + image
-                    }
-                    
-                    if let readyInMinutes = results["readyInMinutes"] as? Int {
-                        self._readyInMinutes = readyInMinutes
-                    }
-                }
-            }
-        }
-        
-        completed()
+    init(getIngredients: Dictionary<String, AnyObject>) {
         
     }
-    
-    
-    func getRecipeIngredients(completed: @escaping DownloadComplete) {
-        
-        let getRecipeURL = URL(string: GET_RECIPE_URL)!
-        Alamofire.request(getRecipeURL, method: .get, headers: HEADERS).responseJSON { response in
-            
-//            let result = response.result
-//            print(response)
-        }
-        
-    }
-    
-    
-
-    
     
 }

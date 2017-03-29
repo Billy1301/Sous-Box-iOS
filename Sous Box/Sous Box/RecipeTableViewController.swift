@@ -18,37 +18,41 @@ class RecipeTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        downloadRecipeData()
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        downloadRecipeData {
+            self.tableView.reloadData()
+        }
         
     }
     
-    func downloadRecipeData() {
+    func downloadRecipeData(completed: @escaping DownloadComplete) {
         
         let currentRecipeURL = URL(string: CURRENT_SEARCH_URL)!
+        
         Alamofire.request(currentRecipeURL, method: .get, headers: HEADERS).responseJSON { response in
             
             let result = response.result
-            print(response)
+//            print(response)
             
             if let dict = result.value as? Dictionary<String, AnyObject> {
                 
                 if let results = dict["results"] as? [Dictionary<String, AnyObject>] {
                     
-                    for obj in results {
+                    for obj in results{
                         let recipes = Spoonacular(getRecipeLists: obj)
                         self.spoons.append(recipes)
+                        
                     }
                     self.tableView.reloadData()
                 }
             }
+            completed()
         }
         
     }
-    
-    
     
     // MARK: - Table view data source
 
@@ -64,14 +68,14 @@ class RecipeTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "recipeCell")
-        
-//        let photoURL = URL(string: URL_IMAGE_BASE + spoon.image)
-//        cell?.imageView?.kf.setImage(with: photoURL)
-//        cell?.textLabel?.text = spoon.title
-        
-        return cell!
-        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "recipeCell", for: indexPath) as? RecipeCellView {
+            let data = spoons[indexPath.row]
+
+            cell.configureCell(spoon: data)
+            return cell
+        } else {
+            return RecipeCellView()
+        }
     }
 
 }
