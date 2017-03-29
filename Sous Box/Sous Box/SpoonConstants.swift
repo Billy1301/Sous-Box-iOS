@@ -17,7 +17,7 @@ var URL_SEARCH_QUERY = "beef"
 let URL_GET_RECIPE = "\(URL_GET_ID)/information?includeNutrition=false"
 var URL_GET_ID = "479101"
 
-let URL_IMAGE_BASE = "https://webknox.com/recipeImages/"
+let URL_IMAGE_BASE: String = "https://webknox.com/recipeImages/"
 
 
 let API_KEY = "AgwPCi7s2gmshqMYcdLRdN9Wd2yXp1hMV3LjsnZXU7PzTroW1Z"

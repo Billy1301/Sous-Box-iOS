@@ -99,42 +99,47 @@ class Spoonacular {
             if let readyInMinutes = results["readyInMinutes"] as? Int {
                 self._readyInMinutes = readyInMinutes
             }
+            
+            if let imageUrls = results["imageUrls"] as? String {
+                self._imageUrls = imageUrls
+            }
         }
     }
     
-//    func downloadRecipeData(completed: @escaping DownloadComplete) {
-//        
-//        let currentRecipeURL = URL(string: CURRENT_SEARCH_URL)!
-//        Alamofire.request(currentRecipeURL, method: .get, headers: HEADERS).responseJSON { response in
-//            
-//            let result = response.result
-//            
-//            if let dict = result.value as? Dictionary<String, AnyObject> {
-//            
-//                if let results = dict["results"] as? Dictionary<String, AnyObject> {
-//                    
-//                    if let id = results["id"] as? Int {
-//                        self._id = id
-//                    }
-//                    
-//                    if let title = results["title"] as? String {
-//                        self._title = title
-//                    }
-//                    
-//                    if let image = results["image"] as? String {
-//                        self._image = URL_IMAGE_BASE + image
-//                    }
-//                    
-//                    if let readyInMinutes = results["readyInMinutes"] as? Int {
-//                        self._readyInMinutes = readyInMinutes
-//                    }
-//                }
-//            }
-//        }
-//        
-//        completed()
-//        
-//    }
+    func downloadRecipeData(completed: @escaping DownloadComplete) {
+        
+        let currentRecipeURL = URL(string: CURRENT_SEARCH_URL)!
+        Alamofire.request(currentRecipeURL, method: .get, headers: HEADERS).responseJSON { response in
+            
+            let result = response.result
+            print(response)
+            
+            if let dict = result.value as? Dictionary<String, AnyObject> {
+            
+                if let results = dict["results"] as? Dictionary<String, AnyObject> {
+                    
+                    if let id = results["id"] as? Int {
+                        self._id = id
+                    }
+                    
+                    if let title = results["title"] as? String {
+                        self._title = title
+                    }
+                    
+                    if let image = results["image"] as? String {
+                        self._image = URL_IMAGE_BASE + image
+                    }
+                    
+                    if let readyInMinutes = results["readyInMinutes"] as? Int {
+                        self._readyInMinutes = readyInMinutes
+                    }
+                }
+            }
+        }
+        
+        completed()
+        
+    }
     
     
     func getRecipeIngredients(completed: @escaping DownloadComplete) {
@@ -142,8 +147,8 @@ class Spoonacular {
         let getRecipeURL = URL(string: GET_RECIPE_URL)!
         Alamofire.request(getRecipeURL, method: .get, headers: HEADERS).responseJSON { response in
             
-            let result = response.result
-            print(response)
+//            let result = response.result
+//            print(response)
         }
         
     }
