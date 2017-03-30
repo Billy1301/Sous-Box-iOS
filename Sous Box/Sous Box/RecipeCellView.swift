@@ -24,6 +24,7 @@ class RecipeCellView: UITableViewCell {
         if spoon.image == "" {
             recipePhoto.image = #imageLiteral(resourceName: "noImage")
         } else {
+            recipePhoto.kf.indicatorType = .activity
             recipePhoto.kf.setImage(with: photoURL)
         }
         

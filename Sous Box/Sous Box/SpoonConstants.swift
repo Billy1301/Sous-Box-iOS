@@ -12,10 +12,14 @@ import Alamofire
 
 let URL_BASE = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/"
 let URL_SEARCH = "search?instructionsRequired=false&limitLicense=false&number=15&offset=0&query=\(URL_SEARCH_QUERY)"
-var URL_SEARCH_QUERY = "beef"
+var URL_SEARCH_QUERY = ""
 
-let URL_GET_RECIPE = "\(URL_GET_ID)/information?includeNutrition=false"
+
+// example of get recipe - grab id to input before URL_GET_RECIPE
+// "479101/information?includeNutrition=false"
 var URL_GET_ID = "479101"
+let URL_GET_RECIPE = "/information?includeNutrition=false"
+
 
 let URL_IMAGE_BASE: String = "https://webknox.com/recipeImages/"
 

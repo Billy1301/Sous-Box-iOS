@@ -8,6 +8,7 @@
 
 import UIKit
 import FBSDKLoginKit
+import FirebaseAuth
 
 class SettingViewController: UIViewController, FBSDKLoginButtonDelegate {
 
@@ -26,14 +27,25 @@ class SettingViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
 //        print("log out of fb")
+        let firebaseAuth = FIRAuth.auth()
+        do {
+            try firebaseAuth?.signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
     }
     
-    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        if error != nil {
-            print(error)
-            return
-        }
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!){
+        let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        
+        FIRAuth.auth()?.signIn(with: credential) { (user, error) in
+            
+            if let error = error {
+                print(error)
+                return
+            }
 //        print("logged in success")
+        }
     }
     
 }

@@ -14,28 +14,29 @@ class RecipeTableViewController: UITableViewController {
 
     var spoon: Spoonacular!
     var spoons = [Spoonacular]()
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        if currentReachabilityStatus != .notReachable {
+            downloadRecipeData {
+                self.tableView.reloadData()
+            }
+        } else {
+            self.showAlert("No Network Found")
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        downloadRecipeData {
-            self.tableView.reloadData()
-        }
-        
+    
     }
     
     func downloadRecipeData(completed: @escaping DownloadComplete) {
-        
         let currentRecipeURL = URL(string: CURRENT_SEARCH_URL)!
         
         Alamofire.request(currentRecipeURL, method: .get, headers: HEADERS).responseJSON { response in
             
             let result = response.result
-//            print(response)
             
             if let dict = result.value as? Dictionary<String, AnyObject> {
                 
@@ -44,14 +45,17 @@ class RecipeTableViewController: UITableViewController {
                     for obj in results{
                         let recipes = Spoonacular(getRecipeLists: obj)
                         self.spoons.append(recipes)
-                        
                     }
-                    self.tableView.reloadData()
                 }
             }
             completed()
         }
-        
+    }
+    
+    func showAlert(_ error : String){
+        let alert = UIAlertController(title: "Alert", message: error, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     // MARK: - Table view data source
@@ -69,9 +73,10 @@ class RecipeTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "recipeCell", for: indexPath) as? RecipeCellView {
-            let data = spoons[indexPath.row]
 
+            let data = spoons[indexPath.row]
             cell.configureCell(spoon: data)
+            
             return cell
         } else {
             return RecipeCellView()

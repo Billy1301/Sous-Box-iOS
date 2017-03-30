@@ -21,6 +21,7 @@
 		28D3BCC61E7B3D8400F98E06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28D3BCC41E7B3D8400F98E06 /* Main.storyboard */; };
 		28D3BCC81E7B3D8400F98E06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28D3BCC71E7B3D8400F98E06 /* Assets.xcassets */; };
 		28D3BCCB1E7B3D8400F98E06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28D3BCC91E7B3D8400F98E06 /* LaunchScreen.storyboard */; };
+		28F1CC761E8D873E00F89CC3 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F1CC751E8D873E00F89CC3 /* Network.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		28D3BCC71E7B3D8400F98E06 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		28D3BCCA1E7B3D8400F98E06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		28D3BCCC1E7B3D8400F98E06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		28F1CC751E8D873E00F89CC3 /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		5F61028756412B01258EAE8B /* Pods-Sous Box.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sous Box.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sous Box/Pods-Sous Box.release.xcconfig"; sourceTree = "<group>"; };
 		D3716AC67C37BAB064626663 /* Pods-Sous Box.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sous Box.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sous Box/Pods-Sous Box.debug.xcconfig"; sourceTree = "<group>"; };
 		EE1002E0F1BC85F31A2A1A3E /* Pods_Sous_Box.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sous_Box.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,6 +135,7 @@
 			children = (
 				2880013B1E8062BD00877620 /* Firebase */,
 				2880013A1E80627A00877620 /* Spoonacular */,
+				28F1CC751E8D873E00F89CC3 /* Network.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				280785B61E81ABBA00A08433 /* SpoonClient.swift in Sources */,
 				2876D3891E81DF4A00134CC2 /* SettingViewController.swift in Sources */,
 				2880013D1E806BEE00877620 /* RecipeCellView.swift in Sources */,
+				28F1CC761E8D873E00F89CC3 /* Network.swift in Sources */,
 				288001431E808FCE00877620 /* SavedRecipeCell.swift in Sources */,
 				28D3BCC31E7B3D8400F98E06 /* TabBarViewController.swift in Sources */,
 				28D3BCC11E7B3D8400F98E06 /* AppDelegate.swift in Sources */,

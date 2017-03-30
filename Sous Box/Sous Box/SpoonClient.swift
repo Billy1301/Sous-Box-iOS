@@ -15,7 +15,7 @@ class Spoonacular {
     //search recipe constants
     var _title: String!
     var _id: Int!
-    var _readyInMinutes: Int!
+//    var _readyInMinutes: Int!
     var _image: String!
     var _imageUrls: String!
     
@@ -38,12 +38,12 @@ class Spoonacular {
         return _id
     }
     
-    var readyInMinutes: Int {
-        if _readyInMinutes == nil {
-            _readyInMinutes = 0
-        }
-        return _readyInMinutes
-    }
+//    var readyInMinutes: Int {
+//        if _readyInMinutes == nil {
+//            _readyInMinutes = 0
+//        }
+//        return _readyInMinutes
+//    }
     
     var image: String {
         if _image == nil {
@@ -94,10 +94,10 @@ class Spoonacular {
                 self._image = image
             }
                     
-            if let readyInMinutes = getRecipeLists["readyInMinutes"] as? Int {
-                self._readyInMinutes = readyInMinutes
-            }
-            
+//            if let readyInMinutes = getRecipeLists["readyInMinutes"] as? Int {
+//                self._readyInMinutes = readyInMinutes
+//            }
+        
             if let imageUrls = getRecipeLists["imageUrls"] as? String {
                 self._imageUrls = imageUrls
             }

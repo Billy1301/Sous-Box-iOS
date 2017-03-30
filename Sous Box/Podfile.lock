@@ -116,6 +116,7 @@ DEPENDENCIES:
   - Alamofire (~> 4.0)
   - FBSDKCoreKit
   - FBSDKLoginKit
+  - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
   - Firebase/RemoteConfig
@@ -150,6 +151,6 @@ SPEC CHECKSUMS:
   TwitterCore: fbdbeaf6d2d20cf7c7aa4136fe5173c1c85df2e2
   TwitterKit: 97e729ceea041d174126235bf6ff67dcf37772d4
 
-PODFILE CHECKSUM: dbb96091e44164ced4597955db219a57d19d9631
+PODFILE CHECKSUM: be8b098182bd5669eb9af155cce39ed7cfb0d5fa
 
 COCOAPODS: 1.1.1
