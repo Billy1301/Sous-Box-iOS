@@ -12,6 +12,9 @@ import Kingfisher
 
 class Spoonacular {
     
+    //get random recipe constant
+    
+    
     //search recipe constants
     var _title: String!
     var _id: Int!
@@ -22,7 +25,6 @@ class Spoonacular {
     //get recipe constants
     var _spoonacularSourceUrl: String!
     var _originalString: String!
-    var _name: String!
     
     
     var spooncularRecipeURL: String {
@@ -68,13 +70,6 @@ class Spoonacular {
         return _originalString
     }
     
-    var name: String {
-        if _name == nil {
-            _name = ""
-        }
-        return _name
-    }
-    
     init(getRecipeLists: Dictionary<String, AnyObject>) {
         
             if let id = getRecipeLists["id"] as? Int {
@@ -96,6 +91,9 @@ class Spoonacular {
     
     init(getIngredients: Dictionary<String, AnyObject>) {
         
+        if let originalString = getIngredients["originalString"] as? String {
+            self._originalString = originalString
+        }
     }
     
 }

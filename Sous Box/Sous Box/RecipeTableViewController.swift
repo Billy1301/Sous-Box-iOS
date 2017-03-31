@@ -15,6 +15,8 @@ class RecipeTableViewController: UITableViewController {
     var spoon: Spoonacular!
     var spoons = [Spoonacular]()
     
+    var search_query = "korean beef"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,13 +28,18 @@ class RecipeTableViewController: UITableViewController {
             self.showAlert("No Network Found")
         }
     }
+    
+    
 
     override func viewWillAppear(_ animated: Bool) {
     
     }
     
     func downloadRecipeData(completed: @escaping DownloadComplete) {
-        let currentRecipeURL = URL(string: CURRENT_SEARCH_URL)!
+        
+        let search_keywords = search_query.replacingOccurrences(of: " ", with: "+")
+        
+        let currentRecipeURL = URL(string: CURRENT_SEARCH_URL + search_keywords)!
         
         Alamofire.request(currentRecipeURL, method: .get, headers: HEADERS).responseJSON { response in
             
@@ -81,6 +88,11 @@ class RecipeTableViewController: UITableViewController {
         } else {
             return RecipeCellView()
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let dataClick = spoons[indexPath.row]
+        print("row clicked ", dataClick._id)
     }
 
 }

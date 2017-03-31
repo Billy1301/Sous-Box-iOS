@@ -11,8 +11,8 @@ import Alamofire
 
 
 let URL_BASE = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/"
-let URL_SEARCH = "search?instructionsRequired=false&limitLicense=false&number=15&offset=0&query=\(URL_SEARCH_QUERY)"
-var URL_SEARCH_QUERY = ""
+let URL_SEARCH = "search?instructionsRequired=false&limitLicense=false&number=15&offset=0&query="
+var URL_SEARCH_QUERY = "beef"
 
 
 // example of get recipe - grab id to input before URL_GET_RECIPE
