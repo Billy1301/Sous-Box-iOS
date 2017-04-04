@@ -12,8 +12,10 @@ import FirebaseAuthUI
 
 class RandomViewController: UIViewController {
 
-    @IBOutlet weak var recipeImage: UIImageView!
     
+    
+    
+    @IBOutlet weak var recipeImage: UIImageView!
     
     
     override func viewDidLoad() {
@@ -27,6 +29,8 @@ class RandomViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
     @IBAction func likeBtnPressed(_ sender: Any) {
     
     }
@@ -34,6 +38,8 @@ class RandomViewController: UIViewController {
     @IBAction func dislikeBtnPressed(_ sender: Any) {
     
     }
+    
+    
     
     
 }

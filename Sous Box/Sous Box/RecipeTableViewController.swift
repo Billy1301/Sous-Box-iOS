@@ -10,34 +10,44 @@ import UIKit
 import Alamofire
 
 
-class RecipeTableViewController: UITableViewController {
+class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
 
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     var spoon: Spoonacular!
     var spoons = [Spoonacular]()
+    var inSearchMode = false
     
-    var search_query = "korean beef"
+    var search_query: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.hideKeyboardWhenTappedAround()
+        searchBar.returnKeyType = UIReturnKeyType.done
+        
+        
         if currentReachabilityStatus != .notReachable {
-            downloadRecipeData {
-                self.tableView.reloadData()
+            if inSearchMode == false {
+                downloadRecipeData(search: search_query) {
+                    self.tableView.reloadData()
+                }
             }
         } else {
             self.showAlert("No Network Found")
         }
+     
     }
     
-    
-
     override func viewWillAppear(_ animated: Bool) {
     
+        
     }
     
-    func downloadRecipeData(completed: @escaping DownloadComplete) {
-        
-        let search_keywords = search_query.replacingOccurrences(of: " ", with: "+")
+    func downloadRecipeData(search: String, completed: @escaping DownloadComplete) {
+    
+        let search_keywords = search.replacingOccurrences(of: " ", with: "+")
+//        print(search_keywords)
         
         let currentRecipeURL = URL(string: CURRENT_SEARCH_URL + search_keywords)!
         
@@ -65,12 +75,34 @@ class RecipeTableViewController: UITableViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    // search function
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        inSearchMode = true
+        search_query = searchBar.text!
+        downloadRecipeData(search: search_query) {
+            self.tableView.reloadData()
+        }
+        view.endEditing(true)
+
+    }
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        if searchBar.text == nil || searchBar.text == "" {
+            inSearchMode = false
+            view.endEditing(true)
+        } else {
+            inSearchMode = true
+        }
+    }
+    
+
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//        // #warning Incomplete implementation, return the number of sections
+//        return 1
+//    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -95,4 +127,16 @@ class RecipeTableViewController: UITableViewController {
         print("row clicked ", dataClick._id)
     }
 
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
