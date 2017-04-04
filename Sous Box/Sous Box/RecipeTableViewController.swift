@@ -16,6 +16,8 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
     
     var spoon: Spoonacular!
     var spoons = [Spoonacular]()
+    var searchSpoons = [Spoonacular]()
+    
     var inSearchMode = false
     
     var search_query: String = ""
@@ -26,7 +28,6 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
         self.hideKeyboardWhenTappedAround()
         searchBar.returnKeyType = UIReturnKeyType.done
         
-        
         if currentReachabilityStatus != .notReachable {
             if inSearchMode == false {
                 downloadRecipeData(search: search_query) {
@@ -36,12 +37,9 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
         } else {
             self.showAlert("No Network Found")
         }
-     
     }
     
     override func viewWillAppear(_ animated: Bool) {
-    
-        
     }
     
     func downloadRecipeData(search: String, completed: @escaping DownloadComplete) {
@@ -61,7 +59,12 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
                     
                     for obj in results{
                         let recipes = Spoonacular(getRecipeLists: obj)
-                        self.spoons.append(recipes)
+                       
+                        if self.inSearchMode == true {
+                            self.searchSpoons.append(recipes)
+                        } else {
+                            self.spoons.append(recipes)
+                        }
                     }
                 }
             }
@@ -80,6 +83,7 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         inSearchMode = true
         search_query = searchBar.text!
+        searchSpoons.removeAll()
         downloadRecipeData(search: search_query) {
             self.tableView.reloadData()
         }
@@ -93,6 +97,7 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
             view.endEditing(true)
         } else {
             inSearchMode = true
+            self.tableView.reloadData()
         }
     }
     
@@ -106,16 +111,26 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return spoons.count
+        if inSearchMode == true {
+            return searchSpoons.count
+        } else {
+            return spoons.count
+        }
+        
+        
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "recipeCell", for: indexPath) as? RecipeCellView {
-
-            let data = spoons[indexPath.row]
-            cell.configureCell(spoon: data)
-            
+            if inSearchMode == true {
+                let searchData = searchSpoons[indexPath.row]
+                cell.configureCell(spoon: searchData)
+            } else {
+                let data = spoons[indexPath.row]
+                cell.configureCell(spoon: data)
+            }
+           
             return cell
         } else {
             return RecipeCellView()

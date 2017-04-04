@@ -10,9 +10,6 @@ import Foundation
 
 class Spoonacular {
     
-    //get random recipe constant
-    
-    
     //search recipe constants
     var _title: String!
     var _id: Int!
@@ -28,8 +25,6 @@ class Spoonacular {
     //get instruction constants
     var _number: Int!
     var _step: String!
-    
-    
     
     
     var number: Int {
@@ -134,6 +129,11 @@ class Spoonacular {
         if let step = getInstructions["step"] as? String {
             self._step = step
         }
+    }
+    
+    init(getRandom: Dictionary<String, AnyObject>) {
+        
+        
     }
     
 }
