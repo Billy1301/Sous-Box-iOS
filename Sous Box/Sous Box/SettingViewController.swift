@@ -45,7 +45,8 @@ class SettingViewController: UIViewController, FBSDKLoginButtonDelegate {
                 print(error)
                 return
             }
-//        print("logged in success")
+            
+//        print("User: \(String(describing: user)) logged in success")
         }
     }
     
