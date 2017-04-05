@@ -21,11 +21,19 @@ class Spoonacular {
     //get recipe constants
     var _spoonacularSourceUrl: String!
     var _originalString: String!
+    var _instructions: String!
     
     //get instruction constants
     var _number: Int!
     var _step: String!
     
+    
+    var instructions: String {
+        if _instructions == nil {
+            _instructions = ""
+        }
+        return _instructions
+    }
     
     var number: Int {
         if _number == nil {
@@ -120,17 +128,7 @@ class Spoonacular {
         }
         
     }
-    
-    init(getInstructions: Dictionary<String, AnyObject>) {
-        
-        if let number = getInstructions["number"] as? Int {
-            self._number = number
-        }
-        
-        if let step = getInstructions["step"] as? String {
-            self._step = step
-        }
-    }
+
     
     init(getRandom: Dictionary<String, AnyObject>) {
         

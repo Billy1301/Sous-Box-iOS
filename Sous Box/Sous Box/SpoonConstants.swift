@@ -19,7 +19,7 @@ var URL_SEARCH_QUERY = "beef"
 // example of get recipe url - grab id to input before URL_GET_RECIPE
 // "479101/information?includeNutrition=false"
 var URL_GET_ID = "479101"
-let URL_GET_RECIPE = "/information?includeNutrition=false"
+let URL_GET_RECIPE = "/information?includeNutrition=false?instructions=true"
 
 // get random recipe url
 let URL_GET_RANDOM = "random?limitLicense=false&number=1"

@@ -14,7 +14,7 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
 
     @IBOutlet weak var recipeImage: UIImageView!
     @IBOutlet weak var ingredientsTableView: UITableView!
-    
+    @IBOutlet weak var instructionsTextView: UITextView!
     @IBOutlet weak var instructionsTableView: UITableView!
     @IBOutlet weak var ingredientsButton: UIButton!
     @IBOutlet weak var instructionsButton: UIButton!
@@ -50,6 +50,11 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
         
     }
     
+    @IBAction func backBtn(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
     func downloadRecipeDetails(recipeID: String, completed: @escaping DownloadComplete) {
         
         let currentRecipeURL = URL(string: URL_BASE + recipeID + URL_GET_RECIPE)!
@@ -57,11 +62,12 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
         Alamofire.request(currentRecipeURL, method: .get, headers: HEADERS).responseJSON { response in
             
             let result = response.result
-            
+            print(response)
             if let dict = result.value as? Dictionary<String, AnyObject> {
                 
                 if let recipeURL = dict["spoonacularSourceUrl"] as? String {
                     self.recipeURLShare = recipeURL
+                    
                 }
                 
                 if let title = dict["title"] as? String {
@@ -74,15 +80,18 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
                     self.recipeImage.kf.setImage(with: imageURL)
                 }
                 
-                if let instructions = dict["analyzedInstructions"] as? Dictionary<String, AnyObject> {
-                    if let step = instructions["steps"] as? [Dictionary<String, AnyObject>] {
-                        for stepsObj in step {
-                            let steps = Spoonacular(getInstructions: stepsObj)
-                            self.instructionsArray.append(steps)
-                            
-                        }
+                if let instruction = dict["instructions"] as? String {
+                    let filterInstrction = instruction.replacingOccurrences(of: ". ", with: ".\n\n")
+                    self.instructionsTextView.text = filterInstrction
+                    
+                    if self.instructionsTextView.text.isEmpty || instruction == nil {
+                        self.instructionsTextView.text = self.recipeURLShare
+                        print(self.recipeURLShare)
                     }
-                }
+                    
+//                    print(self.recipeURLShare)
+//                    print (instruction)
+                    }
                 
                 if let ingredients = dict["extendedIngredients"] as? [Dictionary<String, AnyObject>] {
                     
@@ -100,7 +109,7 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
         setUIBtn(image: #imageLiteral(resourceName: "lists"), button: ingredientsButton, color: .white)
         setUIBtn(image: #imageLiteral(resourceName: "cooking"), button: instructionsButton, color: .gray)
         setUIBtn(image: #imageLiteral(resourceName: "share"), button: shareButton, color: .gray)
-        instructionsTableView.isHidden = true
+        instructionsTextView.isHidden = true
     }
     
     func setUIBtn(image: UIImage, button: UIButton, color: UIColor){
@@ -116,17 +125,15 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBAction func ingredBtnPressed(_ sender: Any) {
         ingredientsTableView.isHidden = false
-        ingredientsTableView.isHidden = true
-//        ingredientsTableView.reloadData()
+        instructionsTextView.isHidden = true
         setUIBtn(image: #imageLiteral(resourceName: "lists"), button: ingredientsButton, color: .white)
         setUIBtn(image: #imageLiteral(resourceName: "cooking"), button: instructionsButton, color: .gray)
         setUIBtn(image: #imageLiteral(resourceName: "share"), button: shareButton, color: .gray)
     }
     
     @IBAction func instructionBtnPressed(_ sender: Any) {
-        instructionsTableView.isHidden = false
+        instructionsTextView.isHidden = false
         ingredientsTableView.isHidden = true
-//        instructionsTableView.reloadData()
         setUIBtn(image: #imageLiteral(resourceName: "lists"), button: ingredientsButton, color: .gray)
         setUIBtn(image: #imageLiteral(resourceName: "cooking"), button: instructionsButton, color: .white)
         setUIBtn(image: #imageLiteral(resourceName: "share"), button: shareButton, color: .gray)
@@ -143,25 +150,13 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if ingredientsTableView.isHidden == true {
-            return instructionsArray.count
-        }
-        
         return ingredientSpoonArray.count
-        
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ingredientsCell", for: indexPath)
-        if instructionsTableView.isHidden == true {
-            let data = ingredientSpoonArray[indexPath.row]
-            cell.textLabel?.text = data.originalString
-        } else {
-            let instructionsData = instructionsArray[indexPath.row]
-            cell.textLabel?.text = instructionsData.step
-        }
-        
+        let data = ingredientSpoonArray[indexPath.row]
+        cell.textLabel?.text = data.originalString
         return cell
     }
 }
