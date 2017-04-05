@@ -16,11 +16,11 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
     
     var spoon: Spoonacular!
     var spoons = [Spoonacular]()
-    var searchSpoons = [Spoonacular]()
-    
+//    var searchSpoons = [Spoonacular]()
     var inSearchMode = false
-    
     var search_query: String = ""
+    var recipeInfoID: String = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,12 +59,7 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
                     
                     for obj in results{
                         let recipes = Spoonacular(getRecipeLists: obj)
-                       
-                        if self.inSearchMode == true {
-                            self.searchSpoons.append(recipes)
-                        } else {
-                            self.spoons.append(recipes)
-                        }
+                        self.spoons.append(recipes)
                     }
                 }
             }
@@ -83,7 +78,7 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         inSearchMode = true
         search_query = searchBar.text!
-        searchSpoons.removeAll()
+        spoons.removeAll()
         downloadRecipeData(search: search_query) {
             self.tableView.reloadData()
         }
@@ -110,27 +105,15 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
 //    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if inSearchMode == true {
-            return searchSpoons.count
-        } else {
-            return spoons.count
-        }
-        
-        
+        return spoons.count
+
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "recipeCell", for: indexPath) as? RecipeCellView {
-            if inSearchMode == true {
-                let searchData = searchSpoons[indexPath.row]
-                cell.configureCell(spoon: searchData)
-            } else {
-                let data = spoons[indexPath.row]
-                cell.configureCell(spoon: data)
-            }
-           
+            let data = spoons[indexPath.row]
+            cell.configureCell(spoon: data)
             return cell
         } else {
             return RecipeCellView()
@@ -139,7 +122,21 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataClick = spoons[indexPath.row]
-        print("row clicked ", dataClick._id)
+        recipeInfoID = "\(dataClick.id)"
+        self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfoID)
+        print("row clicked ", dataClick.id)
+    }
+    
+    
+    func getRecipeDetail() {
+        let vc1 = self.storyboard!.instantiateViewController(withIdentifier: "IngredientsVC") as! IngredientsViewController
+        self.present(vc1, animated:true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? IngredientsViewController {
+            destination.recipeID = recipeInfoID
+        }
     }
 
 }

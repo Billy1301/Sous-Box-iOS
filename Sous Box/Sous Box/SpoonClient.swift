@@ -118,6 +118,7 @@ class Spoonacular {
         if let originalString = getIngredients["originalString"] as? String {
             self._originalString = originalString
         }
+        
     }
     
     init(getInstructions: Dictionary<String, AnyObject>) {
@@ -135,5 +136,6 @@ class Spoonacular {
         
         
     }
+
     
 }

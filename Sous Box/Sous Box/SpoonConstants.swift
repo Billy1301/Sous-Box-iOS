@@ -38,7 +38,6 @@ let HEADERS: HTTPHeaders = [
 ]
 
 let CURRENT_SEARCH_URL = URL_BASE + URL_SEARCH
-let GET_RECIPE_URL = URL_BASE + URL_GET_RECIPE
 let GET_RANDOM_URL = URL_BASE + URL_GET_RANDOM
 
 typealias DownloadComplete = () -> ()
