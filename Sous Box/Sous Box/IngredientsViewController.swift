@@ -84,7 +84,7 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
                     let filterInstrction = instruction.replacingOccurrences(of: ". ", with: ".\n\n")
                     self.instructionsTextView.text = filterInstrction
                     
-                    if self.instructionsTextView.text.isEmpty || instruction == nil {
+                    if filterInstrction == "" || filterInstrction == " " {
                         self.instructionsTextView.text = self.recipeURLShare
                         print(self.recipeURLShare)
                     }

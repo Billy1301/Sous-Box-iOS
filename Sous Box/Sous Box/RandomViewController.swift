@@ -16,22 +16,18 @@ class RandomViewController: UIViewController {
     @IBOutlet weak var recipeTitle: UILabel!
     @IBOutlet weak var recipeImage: UIImageView!
     
-    var spoon: Spoonacular!
-    var spoons = [Spoonacular]()
+    var randomSpoon: Spoonacular!
+    var randomSpoonArray = [Spoonacular]()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        downloadRecipeData {
+            print(self.randomSpoonArray)
+        }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
     
     @IBAction func likeBtnPressed(_ sender: Any) {
     
@@ -41,24 +37,21 @@ class RandomViewController: UIViewController {
     
     }
     
-    func downloadRecipeData(search: String, completed: @escaping DownloadComplete) {
+    func downloadRecipeData(completed: @escaping DownloadComplete) {
         
-        let search_keywords = search.replacingOccurrences(of: " ", with: "+")
-        //        print(search_keywords)
-        
-        let currentRecipeURL = URL(string: CURRENT_SEARCH_URL + search_keywords)!
+        let currentRecipeURL = URL(string: GET_RANDOM_URL)!
         
         Alamofire.request(currentRecipeURL, method: .get, headers: HEADERS).responseJSON { response in
             
             let result = response.result
-            
+            print(response)
             if let dict = result.value as? Dictionary<String, AnyObject> {
                 
-                if let results = dict["results"] as? [Dictionary<String, AnyObject>] {
+                if let results = dict["recipes"] as? [Dictionary<String, AnyObject>] {
                     
                     for obj in results{
                         let recipes = Spoonacular(getRecipeLists: obj)
-                        self.spoons.append(recipes)
+                        self.randomSpoonArray.append(recipes)
                     }
                 }
             }
