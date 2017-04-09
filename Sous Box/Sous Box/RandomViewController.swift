@@ -52,6 +52,10 @@ class RandomViewController: UIViewController {
                     
                     for obj in results{
                         let recipes = Spoonacular(getRecipeLists: obj)
+                        
+                        if recipes.image == "" {
+                            self.recipeImage.image = #imageLiteral(resourceName: "noImage")
+                        }
                         let photoURL = URL(string: recipes.image)
                         self.recipeImage.kf.indicatorType = .activity
                         self.recipeImage.kf.setImage(with: photoURL)

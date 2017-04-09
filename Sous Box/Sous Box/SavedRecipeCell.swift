@@ -17,11 +17,11 @@ class SavedRecipeCell: UITableViewCell {
     @IBOutlet weak var savedReadyInMinutes: UILabel!
     
     
-    func configureCell(firebase: FirebaseClient) {
+    func configureCell(firebase: Recipe) {
         
-        let photoURL = URL(string: "\(URL_IMAGE_BASE)"+firebase.image)
+        let photoURL = URL(string: "\(URL_IMAGE_BASE)" + firebase.image!)
         savedRecipeTitle.text = firebase.title
-        savedReadyInMinutes.text = "Ready in minutes: \(firebase._readyInMinutes!)"
+        savedReadyInMinutes.text = "Ready in minutes: " + firebase.readyInMinutes!
         if firebase.image == "" {
             savedRecipeImage.image = #imageLiteral(resourceName: "noImage")
         } else {
