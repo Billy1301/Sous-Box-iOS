@@ -18,7 +18,7 @@ import Kingfisher
 class SavedTableViewController: UITableViewController {
 
     var ref: FIRDatabaseReference!
-    var recipeData: [FIRDataSnapshot]! = []
+//    var recipeData: [FIRDataSnapshot]! = []
     var storageRef: FIRStorageReference!
     var remoteConfig: FIRRemoteConfig!
     fileprivate var _refHandle: FIRDatabaseHandle!
@@ -26,7 +26,7 @@ class SavedTableViewController: UITableViewController {
     var user: FIRUser?
     var displayUserName: String!
     
-//    var refHandle: UIInt!
+    var refHandle: UInt!
     var recipeList = [Recipe]()
     
     
@@ -36,12 +36,13 @@ class SavedTableViewController: UITableViewController {
         ref = FIRDatabase.database().reference()
         
 //        configureAuth()
-        
+        retrieveRecipe()
        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        configureAuth()
+//        configureAuth()
+        retrieveRecipe()
     }
     
     func configureAuth(){
@@ -49,17 +50,17 @@ class SavedTableViewController: UITableViewController {
         let accessToken = FBSDKAccessToken.current()
         guard let accessTokenString = accessToken?.tokenString else { return }
         
-        let credential = FIRFacebookAuthProvider.credential(withAccessToken: accessTokenString)
+//        let credential = FIRFacebookAuthProvider.credential(withAccessToken: accessTokenString)
         
-        FIRAuth.auth()?.signIn(with: credential, completion: { (user, error) in
-            if error != nil {
-                print("Something went wrong: ", error ?? "")
-                return
-            }
-            
-            self.retrieveRecipe()
-
-        })
+//        FIRAuth.auth()?.signIn(with: credential, completion: { (user, error) in
+//            if error != nil {
+//                print("Something went wrong: ", error ?? "")
+//                return
+//            }
+//            
+//            
+//
+//        })
         
 //        FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id, name"]).start { (connection, result, err) in
 //            
@@ -71,46 +72,34 @@ class SavedTableViewController: UITableViewController {
         
         
 //        // listen for changes in the authorization state
-//        _authHandle = FIRAuth.auth()?.addStateDidChangeListener { (auth: FIRAuth, user: FIRUser?) in
-//            // refresh table data
-//            self.recipeData.removeAll(keepingCapacity: false)
-//            self.tableView.reloadData()
-//            
-//            // check if there is a current user
-//            if let activeUser = user {
-//                // check if the current app user is the current FIRUser
-//                if self.user != activeUser {
-//                    self.user = activeUser
+        _authHandle = FIRAuth.auth()?.addStateDidChangeListener { (auth: FIRAuth, user: FIRUser?) in
+            // refresh table data
+            self.recipeList.removeAll(keepingCapacity: false)
+            self.tableView.reloadData()
+            
+            // check if there is a current user
+            if let activeUser = user {
+                // check if the current app user is the current FIRUser
+                if self.user != activeUser {
+                    self.user = activeUser
 //                    self.signedInStatus()
-//                    self.retrieveRecipe()
-//                }
-//            } else {
-//                // user must sign in
-//              
-//                
-//            }
-//        }
+                    self.retrieveRecipe()
+                }
+            } else {
+                // user must sign in
+                
+            }
+        }
     }
     
     
     func signedInStatus() {
-        configureDatabase()
+
         configureStorage()
         configureRemoteConfig()
         fetchConfig()
     }
 
-    func configureDatabase() {
-        ref = FIRDatabase.database().reference()
-        
-        // listen for new messages in the firebase database
-        _refHandle = ref.child("recipes").observe(.childAdded) { (snapshot: FIRDataSnapshot)in
-        self.recipeData.append(snapshot)
-        self.tableView.insertRows(at: [IndexPath(row: self.recipeData.count, section: 0)], with: .automatic)
-            
-        }
-    }
-    
     func configureRemoteConfig() {
         // create remote config setting to enable developer mode
         let remoteConfigSettings = FIRRemoteConfigSettings(developerModeEnabled: true)
@@ -160,7 +149,16 @@ class SavedTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "savedRecipeCell", for: indexPath) as? SavedRecipeCell {
-            cell.savedRecipeTitle?.text = recipeList[indexPath.row].title
+            
+            let recipeInfo = recipeList[indexPath.row]
+            cell.savedRecipeTitle?.text = recipeInfo.title
+//
+//            let imageURL = URL(string: URL_IMAGE_BASE + recipeInfo.image!)
+//            cell.savedRecipeImage?.kf.setImage(with: imageURL)
+//            
+////            cell.recipeID?.text = "\(String(describing: recipeInfo.id))"
+//            cell.recipeID?.text = "\(recipeInfo.id ?? "")"
+//            
             
             return cell
         } else {
@@ -169,12 +167,10 @@ class SavedTableViewController: UITableViewController {
     }
  
     func retrieveRecipe(){
+//        let userID = FIRAuth.auth()?.currentUser?.uid
+//        let userRef = ref.child(userID!).child("recipes")
         
-//        let ref = FIRDatabase.database().reference(fromURL: "https://sous-box.firebaseio.com/")
-        let userID = FIRAuth.auth()?.currentUser?.uid
-        let userRef = ref.child(userID!).child("recipes")
-        
-        userRef.observe(.childAdded, with: { (snapshot) in
+        refHandle = ref.child("recipes").observe(.childAdded, with: { (snapshot) in
             
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 
@@ -182,11 +178,10 @@ class SavedTableViewController: UITableViewController {
                 let recipes = Recipe()
                 
                 recipes.setValuesForKeys(dictionary)
-                self.recipeList.append(recipes)
                 
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
+                self.recipeList.append(recipes)
+                self.tableView.reloadData()
+               
                 
             }
             

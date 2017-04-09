@@ -10,11 +10,9 @@ import UIKit
 
 class Recipe: NSObject {
     
-    var id: Int?
+    var id: String?
     var image: String?
     var title: String?
     var readyInMinutes: String?
     
-    
-
 }
