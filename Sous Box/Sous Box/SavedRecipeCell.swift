@@ -17,12 +17,12 @@ class SavedRecipeCell: UITableViewCell {
     @IBOutlet weak var savedReadyInMinutes: UILabel!
     
     
-    func configureCell(spoon: Spoonacular) {
+    func configureCell(firebase: FirebaseClient) {
         
-        let photoURL = URL(string: "\(URL_IMAGE_BASE)"+spoon.image)
-        savedRecipeTitle.text = spoon.title
-        savedReadyInMinutes.text = "Ready in minutes: \(spoon._readyInMinutes!)"
-        if spoon.image == "" {
+        let photoURL = URL(string: "\(URL_IMAGE_BASE)"+firebase.image)
+        savedRecipeTitle.text = firebase.title
+        savedReadyInMinutes.text = "Ready in minutes: \(firebase._readyInMinutes!)"
+        if firebase.image == "" {
             savedRecipeImage.image = #imageLiteral(resourceName: "noImage")
         } else {
             savedRecipeImage.kf.indicatorType = .activity
