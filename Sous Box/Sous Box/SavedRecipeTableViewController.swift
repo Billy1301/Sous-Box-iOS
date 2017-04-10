@@ -29,7 +29,7 @@ class SavedRecipeTableViewController: UITableViewController {
         
         let accessToken = FBSDKAccessToken.current()
         guard let accessTokenString = accessToken?.tokenString else { return }
-        
+    
         let credential = FIRFacebookAuthProvider.credential(withAccessToken: accessTokenString)
         
         FIRAuth.auth()?.signIn(with: credential, completion: { (user, error) in
@@ -56,9 +56,11 @@ class SavedRecipeTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "savedRecipeCell", for: indexPath) as? SavedRecipeCell {
-            let recipeInfo = recipeList[indexPath.row]
             
-            cell.savedRecipeTitle.text = recipeInfo.title
+            var recipeDat = Recipe()
+            recipeDat = recipeList[indexPath.row]
+            
+            cell.savedRecipeTitle.text = recipeDat.title
             
             return cell
         } else {
@@ -68,9 +70,9 @@ class SavedRecipeTableViewController: UITableViewController {
  
 
     func fetchRecipeData(){
-//        let userID: String = (FIRAuth.auth()?.currentUser?.uid)!
-//        let userRef = ref.child(userID).child("recipes")
-        let userRef = ref.child("recipes")
+        let userID: String = (FIRAuth.auth()?.currentUser?.uid)!
+//        let userRef = ref.child("recipes").child(userID)
+        let userRef = ref.child(userID)
         
         self.refHandle = userRef.observe(.childAdded, with: { (snapshot) in
             
@@ -78,14 +80,16 @@ class SavedRecipeTableViewController: UITableViewController {
                 
                 print (dictionary)
                 
-                let recipe = Recipe()
-                
-                recipe.setValuesForKeys(dictionary)
-                self.recipeList.append(recipe)
-                
-                print(self.recipeList)
-                
-                self.tableView.reloadData()
+//                if let recipesData = dictionary["recipes"] as? [String, AnyObject] {
+//                    let recipe = Recipe()
+//                    
+//                    recipe.setValuesForKeys(dictionary)
+//                    self.recipeList.append(recipe)
+//                    
+//                    print(self.recipeList)
+//                    
+//                    self.tableView.reloadData()
+//                }
             }
             
         })
