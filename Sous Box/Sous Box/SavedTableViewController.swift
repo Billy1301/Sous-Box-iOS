@@ -175,7 +175,7 @@ class SavedTableViewController: UITableViewController {
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 
                 print(dictionary)
-                let recipes = Recipe()
+                let recipes = Recipe(dictionary: dictionary)
                 
                 recipes.setValuesForKeys(dictionary)
                 

@@ -16,20 +16,43 @@ import Kingfisher
 class SavedRecipeTableViewController: UITableViewController {
 
     var ref: FIRDatabaseReference!
+    fileprivate var _authHandle: FIRAuthStateDidChangeListenerHandle!
     var refHandle: UInt!
     var recipeList = [Recipe]()
+    var user: FIRUser?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
         
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
+        getUserInfo()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if FIRAuth.auth()?.currentUser?.uid == nil {
+            self.showAlert("Must sign in to Facebook to use")
+            logoutFirebase()
+            self.recipeList.removeAll()
+            self.tableView.reloadData()
+        } else {
+            self.fetchRecipeData()
+        }
+    }
+    
+    func logoutFirebase(){
+        do {
+            try FIRAuth.auth()?.signOut()
+        } catch let logoutError {
+            print(logoutError)
+        }
+    }
+    
+    
+    func getUserInfo(){
         let accessToken = FBSDKAccessToken.current()
         guard let accessTokenString = accessToken?.tokenString else { return }
-    
+        
         let credential = FIRFacebookAuthProvider.credential(withAccessToken: accessTokenString)
         
         FIRAuth.auth()?.signIn(with: credential, completion: { (user, error) in
@@ -39,12 +62,10 @@ class SavedRecipeTableViewController: UITableViewController {
             }
             print("user info: ", user?.uid ?? "")
             
-            self.fetchRecipeData()
-
-            
         })
+        
     }
-    
+
 
     // MARK: - Table view data source
 
@@ -57,8 +78,7 @@ class SavedRecipeTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "savedRecipeCell", for: indexPath) as? SavedRecipeCell {
             
-            var recipeDat = Recipe()
-            recipeDat = recipeList[indexPath.row]
+            let recipeDat = recipeList[indexPath.row]
             
             cell.savedRecipeTitle.text = recipeDat.title
             
@@ -70,28 +90,38 @@ class SavedRecipeTableViewController: UITableViewController {
  
 
     func fetchRecipeData(){
+        self.recipeList.removeAll()
+//        self.tableView.reloadData()
+        
         let userID: String = (FIRAuth.auth()?.currentUser?.uid)!
 //        let userRef = ref.child("recipes").child(userID)
-        let userRef = ref.child(userID)
+        let userRef = ref.child(userID).child("recipes")
         
         self.refHandle = userRef.observe(.childAdded, with: { (snapshot) in
             
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 
-                print (dictionary)
+//                print (dictionary)
                 
-//                if let recipesData = dictionary["recipes"] as? [String, AnyObject] {
-//                    let recipe = Recipe()
-//                    
-//                    recipe.setValuesForKeys(dictionary)
-//                    self.recipeList.append(recipe)
-//                    
-//                    print(self.recipeList)
-//                    
-//                    self.tableView.reloadData()
-//                }
+                let recipeInfo = Recipe(dictionary: dictionary)
+//                recipeInfo.id = snapshot.key
+    
+                self.recipeList.append(recipeInfo)
+                    
+//                print(self.recipeList)
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
             
         })
+    }
+    
+    
+    func showAlert(_ error : String){
+        let alert = UIAlertController(title: "Alert", message: error, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
