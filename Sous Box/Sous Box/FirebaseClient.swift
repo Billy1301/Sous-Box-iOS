@@ -49,6 +49,6 @@ class Recipe: NSObject {
         self._image = dictionary["image"] as? String
         self._title = dictionary["title"] as? String
         self._readyInMinutes = dictionary["readyInMinutes"] as? String
-        self._imageUrls = dictionary["imageUrls"]?[0] as? String
+//        self._imageUrls = dictionary["imageUrls"]?[0] as? String
     }
 }

@@ -18,8 +18,8 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
     var spoons = [Spoonacular]()
     var inSearchMode = false
     var search_query: String = ""
-    var recipeInfoID: String = ""
-    
+//    var recipeInfoID: String = ""
+    var recipeInfo: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,9 +110,9 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataClick = spoons[indexPath.row]
-        recipeInfoID = "\(dataClick.id)"
+        recipeInfo = ["\(dataClick.id)", dataClick.image]
 //        print(dataClick.image)
-        self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfoID)
+        self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfo)
     }
     
     
@@ -123,7 +123,8 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? IngredientsViewController {
-            destination.recipeID = recipeInfoID
+            destination.recipeID = recipeInfo[0]
+            destination.recipePhotoUrl = recipeInfo[1]
         }
     }
 

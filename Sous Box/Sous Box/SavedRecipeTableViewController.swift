@@ -19,7 +19,10 @@ class SavedRecipeTableViewController: UITableViewController {
     fileprivate var _authHandle: FIRAuthStateDidChangeListenerHandle!
     var refHandle: UInt!
     var recipeList = [Recipe]()
-    var recipeInfoID: String = ""
+//    var recipeInfoID: String = ""
+//    var recipeImage: String = ""
+    var recipeInfo: [String] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +71,8 @@ class SavedRecipeTableViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? IngredientsViewController {
-            destination.recipeID = recipeInfoID
+            destination.recipeID = recipeInfo[0]
+            destination.recipePhotoUrl = recipeInfo[1]
         }
     }
 
@@ -88,7 +92,7 @@ class SavedRecipeTableViewController: UITableViewController {
             cell.savedRecipeImage.kf.indicatorType = .activity
             cell.savedRecipeImage.kf.setImage(with: photoURL)
             cell.savedReadyInMinutes.text = "Ready in minutes: \(recipeDat.readyInMinutes)"
-            cell.recipeID.text = "\(recipeDat.id)"
+//            cell.recipeID.text = "\(recipeDat.id)"
             
             return cell
         } else {
@@ -98,10 +102,11 @@ class SavedRecipeTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataClick = recipeList[indexPath.row]
-        recipeInfoID = "\(dataClick.id)"
-        print(dataClick.id)
+        recipeInfo = ["\(dataClick.id)", dataClick.image]
+        
+//        print(dataClick.id)
 //        print(dataClick.image)
-//        self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfoID)
+        self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfo)
     }
     
  

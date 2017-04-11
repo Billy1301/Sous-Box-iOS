@@ -15,7 +15,7 @@ class SavedRecipeCell: UITableViewCell {
     @IBOutlet weak var savedRecipeImage: UIImageView!
     @IBOutlet weak var savedRecipeTitle: UILabel!
     @IBOutlet weak var savedReadyInMinutes: UILabel!
-    @IBOutlet weak var recipeID: UILabel!
+//    @IBOutlet weak var recipeID: UILabel!
         
 
 }
