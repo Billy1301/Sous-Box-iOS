@@ -111,8 +111,8 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataClick = spoons[indexPath.row]
         recipeInfoID = "\(dataClick.id)"
-        print(dataClick.image)
-//        self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfoID)
+//        print(dataClick.image)
+        self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfoID)
     }
     
     

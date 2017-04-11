@@ -87,8 +87,8 @@ class SavedRecipeTableViewController: UITableViewController {
             cell.savedRecipeTitle.text = recipeDat.title
             cell.savedRecipeImage.kf.indicatorType = .activity
             cell.savedRecipeImage.kf.setImage(with: photoURL)
-            cell.recipeID.text = recipeDat.id
             cell.savedReadyInMinutes.text = "Ready in minutes: \(recipeDat.readyInMinutes)"
+            cell.recipeID.text = "\(recipeDat.id)"
             
             return cell
         } else {
@@ -99,7 +99,8 @@ class SavedRecipeTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataClick = recipeList[indexPath.row]
         recipeInfoID = "\(dataClick.id)"
-        print(dataClick.image)
+        print(dataClick.id)
+//        print(dataClick.image)
 //        self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfoID)
     }
     

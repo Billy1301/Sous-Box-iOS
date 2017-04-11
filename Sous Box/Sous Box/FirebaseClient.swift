@@ -10,15 +10,15 @@ import UIKit
 
 class Recipe: NSObject {
     var userID: String?
-    var _id: String?
+    var _id: Int?
     var _image: String?
     var _title: String?
     var _readyInMinutes: String?
     var _imageUrls: String?
     
-    var id: String {
+    var id: Int {
         if _id == nil {
-            _id = ""
+            _id = 0
         }
         return _id!
     }
@@ -45,7 +45,7 @@ class Recipe: NSObject {
     }
     
     init(dictionary: [String: AnyObject]) {
-        self._id = dictionary["id"] as? String
+        self._id = dictionary["id"] as? Int
         self._image = dictionary["image"] as? String
         self._title = dictionary["title"] as? String
         self._readyInMinutes = dictionary["readyInMinutes"] as? String

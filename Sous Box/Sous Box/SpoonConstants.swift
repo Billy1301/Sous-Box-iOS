@@ -25,8 +25,8 @@ let URL_GET_RECIPE = "/information"
 let URL_GET_RANDOM = "random?limitLicense=false&number=1"
 
 // use URL before image string object
-//let URL_IMAGE_BASE: String = "https://webknox.com/recipeImages/"
-let URL_IMAGE_BASE: String = "https://spoonacular.com/recipeImages/"
+let URL_IMAGE_BASE: String = "https://webknox.com/recipeImages/"
+//let URL_IMAGE_BASE: String = "https://spoonacular.com/recipeImages/"
 
 
 let API_KEY = "AgwPCi7s2gmshqMYcdLRdN9Wd2yXp1hMV3LjsnZXU7PzTroW1Z"

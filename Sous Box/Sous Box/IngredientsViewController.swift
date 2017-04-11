@@ -42,9 +42,9 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         setFirstUI()
-//        downloadRecipeDetails(recipeID: recipeID){
-//            self.ingredientsTableView.reloadData()
-//        }
+        downloadRecipeDetails(recipeID: recipeID){
+            self.ingredientsTableView.reloadData()
+        }
     }
     
     @IBAction func backBtn(_ sender: Any) {
@@ -60,6 +60,7 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
             
             let result = response.result
             print(response)
+            
             if let dict = result.value as? Dictionary<String, AnyObject> {
                 
                 if let recipeURL = dict["spoonacularSourceUrl"] as? String {
@@ -70,12 +71,12 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
                     self.titleLbl.text = title
                 }
                 
-                if let image = dict["image"] as? String {
-
-                    let imageURL = URL(string: image)
-                    self.recipeImage.kf.indicatorType = .activity
-                    self.recipeImage.kf.setImage(with: imageURL)
-                }
+//                if let image = dict["image"] as? String {
+//
+//                    let imageURL = URL(string: URL_IMAGE_BASE + image)
+//                    self.recipeImage.kf.indicatorType = .activity
+//                    self.recipeImage.kf.setImage(with: imageURL)
+//                }
                 
                 if let instruction = dict["instructions"] as? String {
                     let filterInstrction = instruction.replacingOccurrences(of: ". ", with: ".\n\n")
