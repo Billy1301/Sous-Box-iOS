@@ -21,7 +21,6 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var titleLbl: UILabel!
     
-    
     var ingredientSpoon: Spoonacular!
     var ingredientSpoonArray = [Spoonacular]()
     
@@ -29,7 +28,7 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
     var recipeTitle: String = ""
     var instructionsArray = [Spoonacular]()
     
-    //Getter/Setter to get data from segue
+    // Getter/Setter to get data from segue
     var _recipeID: String!
     
     var recipeID: String {
@@ -40,21 +39,19 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setFirstUI()
-        downloadRecipeDetails(recipeID: recipeID){
-            self.ingredientsTableView.reloadData()
-        }
-        
+//        downloadRecipeDetails(recipeID: recipeID){
+//            self.ingredientsTableView.reloadData()
+//        }
     }
     
     @IBAction func backBtn(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
-    
+    // download recipe data and plug into UI
     func downloadRecipeDetails(recipeID: String, completed: @escaping DownloadComplete) {
         
         let currentRecipeURL = URL(string: URL_BASE + recipeID + URL_GET_RECIPE)!
@@ -67,7 +64,6 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
                 
                 if let recipeURL = dict["spoonacularSourceUrl"] as? String {
                     self.recipeURLShare = recipeURL
-                    
                 }
                 
                 if let title = dict["title"] as? String {
@@ -75,6 +71,7 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
                 }
                 
                 if let image = dict["image"] as? String {
+
                     let imageURL = URL(string: image)
                     self.recipeImage.kf.indicatorType = .activity
                     self.recipeImage.kf.setImage(with: imageURL)
@@ -88,10 +85,7 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
                         self.instructionsTextView.text = self.recipeURLShare
                         print(self.recipeURLShare)
                     }
-                    
-//                    print(self.recipeURLShare)
-//                    print (instruction)
-                    }
+                }
                 
                 if let ingredients = dict["extendedIngredients"] as? [Dictionary<String, AnyObject>] {
                     
@@ -122,31 +116,47 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
         
     }
     
-    
     @IBAction func ingredBtnPressed(_ sender: Any) {
-        ingredientsTableView.isHidden = false
-        instructionsTextView.isHidden = true
-        setUIBtn(image: #imageLiteral(resourceName: "lists"), button: ingredientsButton, color: .white)
-        setUIBtn(image: #imageLiteral(resourceName: "cooking"), button: instructionsButton, color: .gray)
-        setUIBtn(image: #imageLiteral(resourceName: "share"), button: shareButton, color: .gray)
+        
+        let senderButton = sender as! UIButton
+        let isIngredientsView = true
+        
+        if senderButton === ingredientsButton {
+            ingredientsTableView.isHidden = !isIngredientsView
+            instructionsTextView.isHidden = isIngredientsView
+            setUIBtn(image: #imageLiteral(resourceName: "lists"), button: ingredientsButton, color: .white)
+            setUIBtn(image: #imageLiteral(resourceName: "cooking"), button: instructionsButton, color: .gray)
+            setUIBtn(image: #imageLiteral(resourceName: "share"), button: shareButton, color: .gray)
+        } else if senderButton === instructionsButton {
+            ingredientsTableView.isHidden = isIngredientsView
+            instructionsTextView.isHidden = !isIngredientsView
+            setUIBtn(image: #imageLiteral(resourceName: "lists"), button: ingredientsButton, color: .gray)
+            setUIBtn(image: #imageLiteral(resourceName: "cooking"), button: instructionsButton, color: .white)
+            setUIBtn(image: #imageLiteral(resourceName: "share"), button: shareButton, color: .gray)
+        } else if senderButton === shareButton {
+            setUIBtn(image: #imageLiteral(resourceName: "lists"), button: ingredientsButton, color: .gray)
+            setUIBtn(image: #imageLiteral(resourceName: "cooking"), button: instructionsButton, color: .gray)
+            setUIBtn(image: #imageLiteral(resourceName: "share"), button: shareButton, color: .white)
+            
+            // pull up action to share 
+        }
+        
     }
     
-    @IBAction func instructionBtnPressed(_ sender: Any) {
-        instructionsTextView.isHidden = false
-        ingredientsTableView.isHidden = true
-        setUIBtn(image: #imageLiteral(resourceName: "lists"), button: ingredientsButton, color: .gray)
-        setUIBtn(image: #imageLiteral(resourceName: "cooking"), button: instructionsButton, color: .white)
-        setUIBtn(image: #imageLiteral(resourceName: "share"), button: shareButton, color: .gray)
-        
-        
-    }
-
-    @IBAction func shareBtnPressed(_ sender: Any) {
-        setUIBtn(image: #imageLiteral(resourceName: "lists"), button: ingredientsButton, color: .gray)
-        setUIBtn(image: #imageLiteral(resourceName: "cooking"), button: instructionsButton, color: .gray)
-        setUIBtn(image: #imageLiteral(resourceName: "share"), button: shareButton, color: .white)
-    
-    }
+//    @IBAction func instructionBtnPressed(_ sender: Any) {
+//        instructionsTextView.isHidden = false
+//        ingredientsTableView.isHidden = true
+//        setUIBtn(image: #imageLiteral(resourceName: "lists"), button: ingredientsButton, color: .gray)
+//        setUIBtn(image: #imageLiteral(resourceName: "cooking"), button: instructionsButton, color: .white)
+//        setUIBtn(image: #imageLiteral(resourceName: "share"), button: shareButton, color: .gray)
+//    }
+//
+//    @IBAction func shareBtnPressed(_ sender: Any) {
+//        setUIBtn(image: #imageLiteral(resourceName: "lists"), button: ingredientsButton, color: .gray)
+//        setUIBtn(image: #imageLiteral(resourceName: "cooking"), button: instructionsButton, color: .gray)
+//        setUIBtn(image: #imageLiteral(resourceName: "share"), button: shareButton, color: .white)
+//    
+//    }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

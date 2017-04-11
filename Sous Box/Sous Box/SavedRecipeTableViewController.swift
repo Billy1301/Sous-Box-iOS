@@ -19,25 +19,29 @@ class SavedRecipeTableViewController: UITableViewController {
     fileprivate var _authHandle: FIRAuthStateDidChangeListenerHandle!
     var refHandle: UInt!
     var recipeList = [Recipe]()
-    var user: FIRUser?
+    var recipeInfoID: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
-        
-        getUserInfo()
-        
+//        getUserInfo()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if FIRAuth.auth()?.currentUser?.uid == nil {
-            self.showAlert("Must sign in to Facebook to use")
-            logoutFirebase()
-            self.recipeList.removeAll()
-            self.tableView.reloadData()
+        
+        if currentReachabilityStatus != .notReachable {
+            if FIRAuth.auth()?.currentUser?.uid == nil {
+                self.showAlert("Must sign in to Facebook to use")
+                logoutFirebase()
+                self.recipeList.removeAll()
+                self.tableView.reloadData()
+            } else {
+                self.fetchRecipeData()
+            }
         } else {
-            self.fetchRecipeData()
+            self.showAlert("No network connection")
         }
+        
     }
     
     func logoutFirebase(){
@@ -48,67 +52,70 @@ class SavedRecipeTableViewController: UITableViewController {
         }
     }
     
-    
     func getUserInfo(){
         let accessToken = FBSDKAccessToken.current()
         guard let accessTokenString = accessToken?.tokenString else { return }
-        
         let credential = FIRFacebookAuthProvider.credential(withAccessToken: accessTokenString)
-        
         FIRAuth.auth()?.signIn(with: credential, completion: { (user, error) in
             if error != nil {
                 print("Something went wrong: ", error ?? "")
                 return
             }
             print("user info: ", user?.uid ?? "")
-            
         })
-        
     }
-
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? IngredientsViewController {
+            destination.recipeID = recipeInfoID
+        }
+    }
 
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return recipeList.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "savedRecipeCell", for: indexPath) as? SavedRecipeCell {
             
             let recipeDat = recipeList[indexPath.row]
+            let photoURL = URL(string: "\(URL_IMAGE_BASE)"+recipeDat.image)
             
             cell.savedRecipeTitle.text = recipeDat.title
+            cell.savedRecipeImage.kf.indicatorType = .activity
+            cell.savedRecipeImage.kf.setImage(with: photoURL)
+            cell.recipeID.text = recipeDat.id
+            cell.savedReadyInMinutes.text = "Ready in minutes: \(recipeDat.readyInMinutes)"
             
             return cell
         } else {
             return SavedRecipeCell()
         }
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let dataClick = recipeList[indexPath.row]
+        recipeInfoID = "\(dataClick.id)"
+        print(dataClick.image)
+//        self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfoID)
+    }
+    
  
-
     func fetchRecipeData(){
         self.recipeList.removeAll()
-//        self.tableView.reloadData()
         
         let userID: String = (FIRAuth.auth()?.currentUser?.uid)!
-//        let userRef = ref.child("recipes").child(userID)
         let userRef = ref.child(userID).child("recipes")
         
         self.refHandle = userRef.observe(.childAdded, with: { (snapshot) in
             
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 
-//                print (dictionary)
-                
-                let recipeInfo = Recipe(dictionary: dictionary)
-//                recipeInfo.id = snapshot.key
-    
+                let recipeInfo = Recipe(dictionary: dictionary)    
                 self.recipeList.append(recipeInfo)
-                    
-//                print(self.recipeList)
                 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Nla-2j-jdt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Pw1-Ym-DGK">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -201,7 +201,7 @@
                                                 <inset key="imageEdgeInsets" minX="57" minY="-7" maxX="0.0" maxY="0.0"/>
                                                 <state key="normal" title="Ingredients" image="lists"/>
                                                 <connections>
-                                                    <action selector="ingredBtnPressed:" destination="Pw1-Ym-DGK" eventType="touchUpInside" id="3Ez-qc-NfF"/>
+                                                    <action selector="ingredBtnPressed:" destination="Pw1-Ym-DGK" eventType="touchUpInside" id="ZPq-vB-KW0"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nQe-cZ-HoH">
@@ -211,7 +211,7 @@
                                                 <inset key="imageEdgeInsets" minX="57" minY="-8" maxX="0.0" maxY="0.0"/>
                                                 <state key="normal" title="Instructions" image="cooking"/>
                                                 <connections>
-                                                    <action selector="instructionBtnPressed:" destination="Pw1-Ym-DGK" eventType="touchUpInside" id="Wv1-au-hqF"/>
+                                                    <action selector="ingredBtnPressed:" destination="Pw1-Ym-DGK" eventType="touchUpInside" id="t7G-rg-qZ0"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="clX-Wl-zOd">
@@ -221,7 +221,7 @@
                                                 <inset key="imageEdgeInsets" minX="37" minY="-10" maxX="0.0" maxY="0.0"/>
                                                 <state key="normal" title="Share" image="share"/>
                                                 <connections>
-                                                    <action selector="shareBtnPressed:" destination="Pw1-Ym-DGK" eventType="touchUpInside" id="ecb-KI-Go5"/>
+                                                    <action selector="ingredBtnPressed:" destination="Pw1-Ym-DGK" eventType="touchUpInside" id="DBJ-L4-CtF"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -281,13 +281,13 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="ingredientsButton" destination="B5J-wt-x0h" id="66t-ez-0Hj"/>
+                        <outlet property="ingredientsButton" destination="B5J-wt-x0h" id="C88-k6-mwA"/>
                         <outlet property="ingredientsTableView" destination="f9R-uP-W7g" id="vuE-fm-f2d"/>
-                        <outlet property="instructionsButton" destination="nQe-cZ-HoH" id="Wh1-fa-Oig"/>
+                        <outlet property="instructionsButton" destination="nQe-cZ-HoH" id="XCd-rG-AYe"/>
                         <outlet property="instructionsTableView" destination="4XE-JL-b0S" id="ogZ-ri-h4j"/>
                         <outlet property="instructionsTextView" destination="wCn-yJ-UFL" id="dbK-v9-jhH"/>
                         <outlet property="recipeImage" destination="1Sv-hb-O8E" id="Re2-DW-ZSs"/>
-                        <outlet property="shareButton" destination="clX-Wl-zOd" id="lgJ-Xm-dND"/>
+                        <outlet property="shareButton" destination="clX-Wl-zOd" id="hRm-1W-0pz"/>
                         <outlet property="titleLbl" destination="JJr-qm-iJB" id="YCY-Gc-S12"/>
                     </connections>
                 </viewController>
@@ -299,7 +299,7 @@
         <scene sceneID="PLW-pG-4ox">
             <objects>
                 <navigationController id="Nla-2j-jdt" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="tFQ-fe-euD">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="tFQ-fe-euD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.59999999999999998" green="0.050980392159999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

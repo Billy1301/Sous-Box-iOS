@@ -12,7 +12,6 @@
 		281630E51E8C1C2A00667D1C /* RecipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281630E41E8C1C2A00667D1C /* RecipeTableViewController.swift */; };
 		283AF9061E8EFEA90054A087 /* IngredientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283AF9051E8EFEA90054A087 /* IngredientsViewController.swift */; };
 		284F93401E92E7810096D256 /* RandomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284F933F1E92E7810096D256 /* RandomViewController.swift */; };
-		284F93421E92E98F0096D256 /* SavedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284F93411E92E98F0096D256 /* SavedTableViewController.swift */; };
 		284F93441E92EDE20096D256 /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284F93431E92EDE20096D256 /* FirebaseClient.swift */; };
 		284F93461E92EE310096D256 /* FirebaseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284F93451E92EE310096D256 /* FirebaseConstants.swift */; };
 		2876D3831E81CD7F00134CC2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2876D3821E81CD7F00134CC2 /* GoogleService-Info.plist */; };
@@ -34,7 +33,6 @@
 		281630E41E8C1C2A00667D1C /* RecipeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeTableViewController.swift; sourceTree = "<group>"; };
 		283AF9051E8EFEA90054A087 /* IngredientsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsViewController.swift; sourceTree = "<group>"; };
 		284F933F1E92E7810096D256 /* RandomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomViewController.swift; sourceTree = "<group>"; };
-		284F93411E92E98F0096D256 /* SavedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedTableViewController.swift; sourceTree = "<group>"; };
 		284F93431E92EDE20096D256 /* FirebaseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
 		284F93451E92EE310096D256 /* FirebaseConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseConstants.swift; sourceTree = "<group>"; };
 		2876D3821E81CD7F00134CC2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -130,7 +128,6 @@
 				281630E41E8C1C2A00667D1C /* RecipeTableViewController.swift */,
 				283AF9051E8EFEA90054A087 /* IngredientsViewController.swift */,
 				284F933F1E92E7810096D256 /* RandomViewController.swift */,
-				284F93411E92E98F0096D256 /* SavedTableViewController.swift */,
 				288410491E9AF0870016A4A0 /* SavedRecipeTableViewController.swift */,
 			);
 			name = Controller;
@@ -306,7 +303,6 @@
 				284F93401E92E7810096D256 /* RandomViewController.swift in Sources */,
 				288001411E80704700877620 /* SpoonConstants.swift in Sources */,
 				284F93441E92EDE20096D256 /* FirebaseClient.swift in Sources */,
-				284F93421E92E98F0096D256 /* SavedTableViewController.swift in Sources */,
 				280785B61E81ABBA00A08433 /* SpoonClient.swift in Sources */,
 				284F93461E92EE310096D256 /* FirebaseConstants.swift in Sources */,
 				2876D3891E81DF4A00134CC2 /* SettingViewController.swift in Sources */,

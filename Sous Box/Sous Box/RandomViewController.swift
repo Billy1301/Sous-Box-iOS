@@ -23,9 +23,14 @@ class RandomViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        downloadRecipeData {
-//            print(self.randomSpoon.id)
+        if currentReachabilityStatus != .notReachable {
+            self.downloadRecipeData {
+//                print("Download success")
+            }
+        } else {
+            self.showAlert("No network connection")
         }
+
     }
 
     
@@ -34,7 +39,9 @@ class RandomViewController: UIViewController {
     }
     
     @IBAction func dislikeBtnPressed(_ sender: Any) {
-    
+        downloadRecipeData {
+            
+        }
     }
     
     func downloadRecipeData(completed: @escaping DownloadComplete) {
@@ -44,18 +51,17 @@ class RandomViewController: UIViewController {
         Alamofire.request(currentRecipeURL, method: .get, headers: HEADERS).responseJSON { response in
             
             let result = response.result
-//            print(response)
+
             if let dict = result.value as? Dictionary<String, AnyObject> {
                 
                 if let results = dict["recipes"] as? [Dictionary<String, AnyObject>] {
-//                    print(results)
                     
                     for obj in results{
                         let recipes = Spoonacular(getRecipeLists: obj)
-                        
                         if recipes.image == "" {
                             self.recipeImage.image = #imageLiteral(resourceName: "noImage")
                         }
+                        
                         let photoURL = URL(string: recipes.image)
                         self.recipeImage.kf.indicatorType = .activity
                         self.recipeImage.kf.setImage(with: photoURL)

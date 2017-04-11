@@ -16,7 +16,6 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
     
     var spoon: Spoonacular!
     var spoons = [Spoonacular]()
-//    var searchSpoons = [Spoonacular]()
     var inSearchMode = false
     var search_query: String = ""
     var recipeInfoID: String = ""
@@ -39,14 +38,9 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-    }
-    
     func downloadRecipeData(search: String, completed: @escaping DownloadComplete) {
     
         let search_keywords = search.replacingOccurrences(of: " ", with: "+")
-//        print(search_keywords)
-        
         let currentRecipeURL = URL(string: CURRENT_SEARCH_URL + search_keywords)!
         
         Alamofire.request(currentRecipeURL, method: .get, headers: HEADERS).responseJSON { response in
@@ -96,9 +90,7 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-
     // MARK: - Table view data source
-
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return spoons.count
@@ -119,8 +111,8 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataClick = spoons[indexPath.row]
         recipeInfoID = "\(dataClick.id)"
-        self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfoID)
-        print("row clicked ", dataClick.id)
+        print(dataClick.image)
+//        self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfoID)
     }
     
     
