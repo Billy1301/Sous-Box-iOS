@@ -28,7 +28,7 @@ class RandomViewController: UIViewController {
 //                print("Download success")
             }
         } else {
-            self.showAlert("No network connection")
+            showAlert("No network connection")
         }
 
     }
@@ -77,20 +77,21 @@ class RandomViewController: UIViewController {
     func clickedOnImage(){
         recipeInfoID = "\(randomSpoon.id)"
         self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfoID)
-//        print("row clicked ", dataClick.id)
+
         
     }
     
-    func showAlert(_ error : String){
-        let alert = UIAlertController(title: "Alert", message: error, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? IngredientsViewController {
             destination.recipeID = recipeInfoID
         }
     }
-    
+}
+
+extension UIViewController {
+    func showAlert(_ error : String){
+        let alert = UIAlertController(title: "Alert", message: error, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }

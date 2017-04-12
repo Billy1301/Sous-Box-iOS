@@ -23,10 +23,9 @@ class SettingViewController: UIViewController, FBSDKLoginButtonDelegate {
         FBloginBtn.delegate = self
         
     }
-
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-//        print("log out of fb")
+
         let firebaseAuth = FIRAuth.auth()
         do {
             try firebaseAuth?.signOut()
@@ -38,15 +37,13 @@ class SettingViewController: UIViewController, FBSDKLoginButtonDelegate {
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!){
         
         let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-        
         FIRAuth.auth()?.signIn(with: credential) { (user, error) in
             
             if let error = error {
                 print(error)
                 return
             }
-            
-//        print("User: \(String(describing: user)) logged in success")
+
         }
     }
     

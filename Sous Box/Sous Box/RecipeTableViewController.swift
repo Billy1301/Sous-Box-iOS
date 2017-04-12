@@ -18,7 +18,6 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
     var spoons = [Spoonacular]()
     var inSearchMode = false
     var search_query: String = ""
-//    var recipeInfoID: String = ""
     var recipeInfo: [String] = []
     
     override func viewDidLoad() {
@@ -34,7 +33,7 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
                 }
             }
         } else {
-            self.showAlert("No Network Found")
+            showAlert("No network connection")
         }
     }
     
@@ -61,11 +60,6 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    func showAlert(_ error : String){
-        let alert = UIAlertController(title: "Alert", message: error, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
     
     // search function
     
@@ -111,7 +105,6 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataClick = spoons[indexPath.row]
         recipeInfo = ["\(dataClick.id)", dataClick.image]
-//        print(dataClick.image)
         self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfo)
     }
     

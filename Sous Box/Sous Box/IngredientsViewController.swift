@@ -19,6 +19,7 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var ingredientsBtn: UIButton!
     @IBOutlet weak var instructionsBtn: UIButton!
     @IBOutlet weak var shareBtn: UIButton!
+    @IBOutlet weak var saveBtnLbl: UIButton!
     
     var ingredientSpoon: Spoonacular!
     var ingredientSpoonArray = [Spoonacular]()
@@ -50,17 +51,34 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         setFirstUI()
-        downloadRecipeDetails(recipeID: recipeID){
-            self.ingredientsTableView.reloadData()
-            
-            print(self.recipeID)
-            print(self.recipePhotoUrl)
+        
+        if currentReachabilityStatus != .notReachable {
+            self.downloadRecipeDetails(recipeID: recipeID){
+                self.ingredientsTableView.reloadData()
+            }
+        } else {
+            showAlert("No network connection")
         }
+       
     }
     
     @IBAction func backBtn(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func saveRecipeBtn(_ sender: Any) {
+        if saveBtnLbl.currentTitle == "Save" {
+            saveBtnLbl.setTitle("Un-Save", for: .normal)
+            print("Un-save recipe")
+        } else {
+            saveBtnLbl.setTitle("Save", for: .normal)
+            print("Saved recipe to favorites")
+            
+        }
+        
+    }
+    
+    
     
     // download recipe data and plug into UI
     func downloadRecipeDetails(recipeID: String, completed: @escaping DownloadComplete) {
@@ -112,6 +130,7 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func setFirstUI(){
+        
         setUIBtn(image: #imageLiteral(resourceName: "lists"), button: ingredientsBtn, color: .white)
         setUIBtn(image: #imageLiteral(resourceName: "cooking"), button: instructionsBtn, color: .gray)
         setUIBtn(image: #imageLiteral(resourceName: "share"), button: shareBtn, color: .gray)

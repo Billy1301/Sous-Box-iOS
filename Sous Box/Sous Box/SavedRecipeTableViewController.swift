@@ -19,15 +19,12 @@ class SavedRecipeTableViewController: UITableViewController {
     fileprivate var _authHandle: FIRAuthStateDidChangeListenerHandle!
     var refHandle: UInt!
     var recipeList = [Recipe]()
-//    var recipeInfoID: String = ""
-//    var recipeImage: String = ""
     var recipeInfo: [String] = []
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
-//        getUserInfo()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,7 +39,7 @@ class SavedRecipeTableViewController: UITableViewController {
                 self.fetchRecipeData()
             }
         } else {
-            self.showAlert("No network connection")
+            showAlert("No network connection")
         }
         
     }
@@ -55,6 +52,7 @@ class SavedRecipeTableViewController: UITableViewController {
         }
     }
     
+    // to get user info
     func getUserInfo(){
         let accessToken = FBSDKAccessToken.current()
         guard let accessTokenString = accessToken?.tokenString else { return }
@@ -67,7 +65,6 @@ class SavedRecipeTableViewController: UITableViewController {
             print("user info: ", user?.uid ?? "")
         })
     }
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? IngredientsViewController {
@@ -92,7 +89,6 @@ class SavedRecipeTableViewController: UITableViewController {
             cell.savedRecipeImage.kf.indicatorType = .activity
             cell.savedRecipeImage.kf.setImage(with: photoURL)
             cell.savedReadyInMinutes.text = "Ready in minutes: \(recipeDat.readyInMinutes)"
-//            cell.recipeID.text = "\(recipeDat.id)"
             
             return cell
         } else {
@@ -103,9 +99,6 @@ class SavedRecipeTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataClick = recipeList[indexPath.row]
         recipeInfo = ["\(dataClick.id)", dataClick.image]
-        
-//        print(dataClick.id)
-//        print(dataClick.image)
         self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfo)
     }
     
@@ -130,11 +123,5 @@ class SavedRecipeTableViewController: UITableViewController {
             
         })
     }
-    
-    
-    func showAlert(_ error : String){
-        let alert = UIAlertController(title: "Alert", message: error, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
+
 }
