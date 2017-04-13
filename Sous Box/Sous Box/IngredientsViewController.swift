@@ -9,6 +9,8 @@
 import UIKit
 import Alamofire
 import Kingfisher
+import Firebase
+import FirebaseAuthUI
 
 class IngredientsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -24,6 +26,7 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
     var ingredientSpoon: Spoonacular!
     var ingredientSpoonArray = [Spoonacular]()
     
+    var ref: FIRDatabaseReference!
     var recipeURLShare: String = ""
     var recipeTitle: String = ""
     var instructionsArray = [Spoonacular]()
@@ -50,14 +53,19 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = FIRDatabase.database().reference()
         setFirstUI()
         
-        print(recipePhotoUrl)
         
         if currentReachabilityStatus != .notReachable {
-            self.downloadRecipeDetails(recipeID: recipeID){
-                self.ingredientsTableView.reloadData()
+            if FIRAuth.auth()?.currentUser?.uid == nil {
+                showAlert("Need to sign in to facebook to save")
+            } else {
+                self.downloadRecipeDetails(recipeID: recipeID){
+                    self.ingredientsTableView.reloadData()
+                }
             }
+            
         } else {
             showAlert("No network connection")
         }
@@ -71,6 +79,15 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
     @IBAction func saveRecipeBtn(_ sender: Any) {
         if saveBtnLbl.currentTitle == "Save" {
             saveBtnLbl.setTitle("Un-Save", for: .normal)
+            
+            let userID: String = (FIRAuth.auth()?.currentUser?.uid)!
+            let userRef = ref.child(userID)
+            
+            //must create dict to push data to firebase
+//            let dict = ["id": data.id, "title": data.title, "image": recipePhotoUrlToUse, "readyInMinutes": "\(data.readyInMinutes)"] as [String : Any]
+//            
+//            userRef.child("recipes").childByAutoId().setValue(dict)
+            
             print("save recipe")
         } else {
             saveBtnLbl.setTitle("Save", for: .normal)

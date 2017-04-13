@@ -16,13 +16,19 @@ class RandomViewController: UIViewController {
     @IBOutlet weak var recipeTitle: UILabel!
     @IBOutlet weak var recipeImage: UIImageView!
     
+    var ref: FIRDatabaseReference!
     var randomSpoon: Spoonacular!
     var randomSpoonArray = [Spoonacular]()
     var recipeInfoID: String = ""
     var recipeInfo: [String] = []
     
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = FIRDatabase.database().reference()
         
         if currentReachabilityStatus != .notReachable {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(RandomViewController.imageTapped(gesture:)))
@@ -40,11 +46,10 @@ class RandomViewController: UIViewController {
 
     
     @IBAction func likeBtnPressed(_ sender: Any) {
-        let image_keywords = recipeInfo[1].replacingOccurrences(of: "https://spoonacular.com/recipeImages/", with: "")
-        recipeInfo[1] = image_keywords
-        print(recipeInfo)
         // need to setup 
+        sendToFirebaseDatabase()
         
+//        print(randomSpoonArray)
     }
     
     @IBAction func dislikeBtnPressed(_ sender: Any) {
@@ -56,8 +61,6 @@ class RandomViewController: UIViewController {
     func imageTapped(gesture: UIGestureRecognizer) {
         
         if (gesture.view as? UIImageView) != nil {
-            let image_keywords = recipeInfo[1].replacingOccurrences(of: "https://spoonacular.com/recipeImages/", with: "")
-            recipeInfo[1] = image_keywords
             self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfo)
             
         }
@@ -75,8 +78,10 @@ class RandomViewController: UIViewController {
                 
                 if let results = dict["recipes"] as? [Dictionary<String, AnyObject>] {
                     
-                    for obj in results{
+                    for obj in results {
                         let recipes = Spoonacular(getRecipeLists: obj)
+                        self.randomSpoonArray.append(recipes)
+                        
                         if recipes.image == "" {
                             self.recipeImage.image = #imageLiteral(resourceName: "noImage")
                         }
@@ -96,11 +101,27 @@ class RandomViewController: UIViewController {
     
     
     
-    func clickedOnImage(){
+    func sendToFirebaseDatabase(){
         
-        
+        let userID: String = (FIRAuth.auth()?.currentUser?.uid)!
+        if FIRAuth.auth()?.currentUser?.uid == nil {
+            showAlert("Need to sign in to facebook to save")
+        } else {
+            let userRef = ref.child(userID)
+            
+            let data = randomSpoonArray[0]
+            
+            let revisedImage = randomSpoonArray[0].image.replacingOccurrences(of: "https://spoonacular.com/recipeImages/", with: "")
+            
+            let recipePhotoUrlToUse = revisedImage
+            
+            //must create dict to push data to firebase
+            let dict = ["id": data.id, "title": data.title, "image": recipePhotoUrlToUse, "readyInMinutes": "\(data.readyInMinutes)"] as [String : Any]
+            
+            userRef.child("recipes").childByAutoId().setValue(dict)
+            
+        }
 
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

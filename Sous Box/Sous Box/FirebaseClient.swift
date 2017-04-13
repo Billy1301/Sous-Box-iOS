@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class Recipe: NSObject {
     var userID: String?
@@ -51,4 +52,5 @@ class Recipe: NSObject {
         self._readyInMinutes = dictionary["readyInMinutes"] as? String
 //        self._imageUrls = dictionary["imageUrls"]?[0] as? String
     }
+    
 }

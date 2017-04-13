@@ -13,7 +13,7 @@ import FBSDKLoginKit
 import FirebaseFacebookAuthUI
 import Kingfisher
 
-class SavedRecipeTableViewController: UITableViewController {
+class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizerDelegate {
 
     var ref: FIRDatabaseReference!
     fileprivate var _authHandle: FIRAuthStateDidChangeListenerHandle!
@@ -25,6 +25,12 @@ class SavedRecipeTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
+        
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(SavedRecipeTableViewController.handleLongPress(_:)))
+        lpgr.minimumPressDuration = 1
+        lpgr.delaysTouchesBegan = true
+        lpgr.delegate = self
+        self.tableView.addGestureRecognizer(lpgr)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,6 +49,26 @@ class SavedRecipeTableViewController: UITableViewController {
         }
         
     }
+    
+    func handleLongPress(_ gestureReconizer: UILongPressGestureRecognizer) {
+        if gestureReconizer.state != UIGestureRecognizerState.ended {
+            return
+        }
+        
+        let p = gestureReconizer.location(in: self.tableView)
+        let indexPath = self.tableView.indexPathForRow(at: p)
+        
+        if let index = indexPath {
+            var row = self.tableView.cellForRow(at: index)
+            // do stuff with your cell, for example print the indexPath
+            
+            
+            print("Removed: ", index.row)
+        } else {
+            
+        }
+    }
+    
     
     func logoutFirebase(){
         do {
@@ -100,6 +126,8 @@ class SavedRecipeTableViewController: UITableViewController {
         let dataClick = recipeList[indexPath.row]
         recipeInfo = ["\(dataClick.id)", dataClick.image]
         self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfo)
+        
+        
     }
     
  
