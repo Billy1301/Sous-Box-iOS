@@ -122,8 +122,8 @@
                                             <action selector="backBtn:" destination="Pw1-Ym-DGK" eventType="touchUpInside" id="s8H-U1-dMz"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dPy-iD-N9I">
-                                        <rect key="frame" x="360" y="21" width="46" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dPy-iD-N9I">
+                                        <rect key="frame" x="303" y="21" width="103" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Save">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -272,7 +272,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GoG-1b-zSK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2736" y="743"/>
+            <point key="canvasLocation" x="2734.7826086956525" y="741.84782608695662"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="fKm-7v-RVW">
@@ -402,7 +402,7 @@
         <scene sceneID="PLW-pG-4ox">
             <objects>
                 <navigationController id="Nla-2j-jdt" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="tFQ-fe-euD">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="tFQ-fe-euD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.59999999999999998" green="0.050980392159999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -639,6 +639,6 @@
         <image name="share" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tEQ-jq-Vsg"/>
+        <segue reference="9fd-YI-iuR"/>
     </inferredMetricsTieBreakers>
 </document>

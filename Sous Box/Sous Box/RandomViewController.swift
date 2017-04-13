@@ -19,11 +19,16 @@ class RandomViewController: UIViewController {
     var randomSpoon: Spoonacular!
     var randomSpoonArray = [Spoonacular]()
     var recipeInfoID: String = ""
+    var recipeInfo: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if currentReachabilityStatus != .notReachable {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(RandomViewController.imageTapped(gesture:)))
+            recipeImage.addGestureRecognizer(tapGesture)
+            recipeImage.isUserInteractionEnabled = true
+            
             self.downloadRecipeData {
 //                print("Download success")
             }
@@ -35,11 +40,25 @@ class RandomViewController: UIViewController {
 
     
     @IBAction func likeBtnPressed(_ sender: Any) {
-        print(recipeInfoID)
+        let image_keywords = recipeInfo[1].replacingOccurrences(of: "https://spoonacular.com/recipeImages/", with: "")
+        recipeInfo[1] = image_keywords
+        print(recipeInfo)
+        // need to setup 
+        
     }
     
     @IBAction func dislikeBtnPressed(_ sender: Any) {
         downloadRecipeData {
+            
+        }
+    }
+    
+    func imageTapped(gesture: UIGestureRecognizer) {
+        
+        if (gesture.view as? UIImageView) != nil {
+            let image_keywords = recipeInfo[1].replacingOccurrences(of: "https://spoonacular.com/recipeImages/", with: "")
+            recipeInfo[1] = image_keywords
+            self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfo)
             
         }
     }
@@ -67,6 +86,7 @@ class RandomViewController: UIViewController {
                         self.recipeImage.kf.setImage(with: photoURL)
                         self.recipeInfoID = "\(recipes.id)"
                         self.recipeTitle.text = recipes.title
+                        self.recipeInfo = ["\(recipes.id)", recipes.image]
                     }
                 }
             }
@@ -74,16 +94,19 @@ class RandomViewController: UIViewController {
         }
     }
     
+    
+    
     func clickedOnImage(){
-        recipeInfoID = "\(randomSpoon.id)"
-        self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfoID)
+        
+        
 
         
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? IngredientsViewController {
-            destination.recipeID = recipeInfoID
+            destination.recipeID = recipeInfo[0]
+            destination.recipePhotoUrl = recipeInfo[1]
         }
     }
 }

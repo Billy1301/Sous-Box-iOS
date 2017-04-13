@@ -52,6 +52,8 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         setFirstUI()
         
+        print(recipePhotoUrl)
+        
         if currentReachabilityStatus != .notReachable {
             self.downloadRecipeDetails(recipeID: recipeID){
                 self.ingredientsTableView.reloadData()
@@ -69,10 +71,10 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
     @IBAction func saveRecipeBtn(_ sender: Any) {
         if saveBtnLbl.currentTitle == "Save" {
             saveBtnLbl.setTitle("Un-Save", for: .normal)
-            print("Un-save recipe")
+            print("save recipe")
         } else {
             saveBtnLbl.setTitle("Save", for: .normal)
-            print("Saved recipe to favorites")
+            print("unsave")
             
         }
         
