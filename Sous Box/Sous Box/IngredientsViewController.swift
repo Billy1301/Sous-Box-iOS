@@ -29,6 +29,7 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
     var ref: FIRDatabaseReference!
     var recipeURLShare: String = ""
     var recipeTitle: String = ""
+    var readyInMinutes: String = ""
     var instructionsArray = [Spoonacular]()
     
     // Getter/Setter to get data from segue
@@ -84,13 +85,14 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
             let userRef = ref.child(userID)
             
             //must create dict to push data to firebase
-//            let dict = ["id": data.id, "title": data.title, "image": recipePhotoUrlToUse, "readyInMinutes": "\(data.readyInMinutes)"] as [String : Any]
-//            
-//            userRef.child("recipes").childByAutoId().setValue(dict)
+            let dict = ["id": Int(recipeID) ?? "", "title": titleLbl.text ?? "", "image": recipePhotoUrl, "readyInMinutes": readyInMinutes] as [String : Any]
             
+            userRef.child("recipes").childByAutoId().setValue(dict)
+//            print(dict)
             print("save recipe")
         } else {
             saveBtnLbl.setTitle("Save", for: .normal)
+            
             print("unsave")
             
         }
@@ -125,6 +127,11 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
                     self.recipeImage.kf.indicatorType = .activity
                     self.recipeImage.kf.setImage(with: imageURL)
                 }
+                
+                if let readyInMin = dict["readyInMinutes"] as? Int {
+                    self.readyInMinutes = "\(readyInMin)"
+                }
+                
                 
                 if let instruction = dict["instructions"] as? String {
                     let filterInstrction = instruction.replacingOccurrences(of: ". ", with: ".\n\n")

@@ -61,8 +61,7 @@ class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizer
         if let index = indexPath {
             var row = self.tableView.cellForRow(at: index)
             // do stuff with your cell, for example print the indexPath
-            
-            
+        
             print("Removed: ", index.row)
         } else {
             

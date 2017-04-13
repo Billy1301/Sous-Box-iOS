@@ -48,8 +48,10 @@ class RandomViewController: UIViewController {
     @IBAction func likeBtnPressed(_ sender: Any) {
         // need to setup 
         sendToFirebaseDatabase()
+        downloadRecipeData {
+            
+        }
         
-//        print(randomSpoonArray)
     }
     
     @IBAction func dislikeBtnPressed(_ sender: Any) {
@@ -67,6 +69,7 @@ class RandomViewController: UIViewController {
     }
     
     func downloadRecipeData(completed: @escaping DownloadComplete) {
+        randomSpoonArray.removeAll()
         
         let currentRecipeURL = URL(string: GET_RANDOM_URL)!
         
@@ -108,9 +111,7 @@ class RandomViewController: UIViewController {
             showAlert("Need to sign in to facebook to save")
         } else {
             let userRef = ref.child(userID)
-            
             let data = randomSpoonArray[0]
-            
             let revisedImage = randomSpoonArray[0].image.replacingOccurrences(of: "https://spoonacular.com/recipeImages/", with: "")
             
             let recipePhotoUrlToUse = revisedImage
