@@ -23,6 +23,9 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var shareBtn: UIButton!
     @IBOutlet weak var saveBtnLbl: UIButton!
     
+    @IBOutlet weak var unSaveBtnLbl: UIButton!
+    
+    
     var ingredientSpoon: Spoonacular!
     var ingredientSpoonArray = [Spoonacular]()
     
@@ -35,6 +38,7 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
     // Getter/Setter to get data from segue
     var _recipeID: String!
     var _recipePhotoUrl: String!
+    var _recipeSegueID: String!
     
     var recipeID: String {
         get {
@@ -52,11 +56,31 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
+    var recipeSegueID: String {
+        get {
+            return _recipeSegueID
+        } set {
+            _recipeSegueID = newValue
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
         setFirstUI()
         
+        if recipeSegueID == "randomSegue" {
+            saveBtnLbl.isEnabled = false
+            saveBtnLbl.isHidden = true
+            unSaveBtnLbl.isEnabled = false
+            unSaveBtnLbl.isHidden = true
+        } else if recipeSegueID == "recipeListSegue" {
+            unSaveBtnLbl.isHidden = true
+            unSaveBtnLbl.isEnabled = false
+        } else if recipeSegueID == "savedSegue" {
+            saveBtnLbl.isEnabled = false
+            saveBtnLbl.isHidden = true
+        }
         
         if currentReachabilityStatus != .notReachable {
             if FIRAuth.auth()?.currentUser?.uid == nil {
@@ -78,24 +102,24 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     @IBAction func saveRecipeBtn(_ sender: Any) {
-        if saveBtnLbl.currentTitle == "Save" {
-            saveBtnLbl.setTitle("Un-Save", for: .normal)
+   
+        let userID: String = (FIRAuth.auth()?.currentUser?.uid)!
+        let userRef = ref.child(userID)
             
-            let userID: String = (FIRAuth.auth()?.currentUser?.uid)!
-            let userRef = ref.child(userID)
+        //must create dictionary to push data to firebase
+        //http://stackoverflow.com/questions/38231055/save-array-of-classes-into-firebase-database-using-swift
+        let dict = ["id": Int(recipeID) ?? "", "title": titleLbl.text ?? "", "image": recipePhotoUrl, "readyInMinutes": readyInMinutes] as [String : Any]
             
-            //must create dict to push data to firebase
-            let dict = ["id": Int(recipeID) ?? "", "title": titleLbl.text ?? "", "image": recipePhotoUrl, "readyInMinutes": readyInMinutes] as [String : Any]
-            
-            userRef.child("recipes").childByAutoId().setValue(dict)
-//            print(dict)
-            print("save recipe")
-        } else {
-            saveBtnLbl.setTitle("Save", for: .normal)
-            
-            print("unsave")
-            
-        }
+        userRef.child("recipes").childByAutoId().setValue(dict)
+
+        print("Saved recipe")
+        
+    }
+    
+    
+    @IBAction func unSaveBtnPressed(_ sender: Any) {
+        
+        //create func to delete from firebase database
         
     }
     

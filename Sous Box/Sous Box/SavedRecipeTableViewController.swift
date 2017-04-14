@@ -59,7 +59,7 @@ class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizer
         let indexPath = self.tableView.indexPathForRow(at: p)
         
         if let index = indexPath {
-            var row = self.tableView.cellForRow(at: index)
+//            var row = self.tableView.cellForRow(at: index)
             // do stuff with your cell, for example print the indexPath
         
             print("Removed: ", index.row)
@@ -91,12 +91,7 @@ class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizer
         })
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? IngredientsViewController {
-            destination.recipeID = recipeInfo[0]
-            destination.recipePhotoUrl = recipeInfo[1]
-        }
-    }
+    
 
     // MARK: - Table view data source
 
@@ -123,12 +118,19 @@ class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizer
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataClick = recipeList[indexPath.row]
-        recipeInfo = ["\(dataClick.id)", dataClick.image]
+        recipeInfo = ["\(dataClick.id)", dataClick.image, "savedSegue"]
         self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfo)
         
         
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? IngredientsViewController {
+            destination.recipeID = recipeInfo[0]
+            destination.recipePhotoUrl = recipeInfo[1]
+            destination.recipeSegueID = recipeInfo[2]
+        }
+    }
  
     func fetchRecipeData(){
         self.recipeList.removeAll()

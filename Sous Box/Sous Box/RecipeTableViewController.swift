@@ -104,7 +104,7 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataClick = spoons[indexPath.row]
-        recipeInfo = ["\(dataClick.id)", dataClick.image]
+        recipeInfo = ["\(dataClick.id)", dataClick.image, "recipeListSegue"]
         self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfo)
     }
     
@@ -118,6 +118,7 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
         if let destination = segue.destination as? IngredientsViewController {
             destination.recipeID = recipeInfo[0]
             destination.recipePhotoUrl = recipeInfo[1]
+            destination.recipeSegueID = recipeInfo[2]
         }
     }
 

@@ -23,9 +23,6 @@ class RandomViewController: UIViewController {
     var recipeInfo: [String] = []
     
     
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
@@ -94,7 +91,7 @@ class RandomViewController: UIViewController {
                         self.recipeImage.kf.setImage(with: photoURL)
                         self.recipeInfoID = "\(recipes.id)"
                         self.recipeTitle.text = recipes.title
-                        self.recipeInfo = ["\(recipes.id)", recipes.image]
+                        self.recipeInfo = ["\(recipes.id)", recipes.image, "randomSegue"]
                     }
                 }
             }
@@ -129,6 +126,7 @@ class RandomViewController: UIViewController {
         if let destination = segue.destination as? IngredientsViewController {
             destination.recipeID = recipeInfo[0]
             destination.recipePhotoUrl = recipeInfo[1]
+            destination.recipeSegueID = recipeInfo[2]
         }
     }
 }
