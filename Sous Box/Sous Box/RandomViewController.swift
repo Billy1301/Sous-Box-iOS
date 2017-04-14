@@ -117,7 +117,7 @@ class RandomViewController: UIViewController {
             let dict = ["id": data.id, "title": data.title, "image": recipePhotoUrlToUse, "readyInMinutes": "\(data.readyInMinutes)"] as [String : Any]
             
             userRef.child("recipes").childByAutoId().setValue(dict)
-            
+            print(userRef.childByAutoId().key)
         }
 
     }

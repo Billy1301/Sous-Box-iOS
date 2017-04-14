@@ -16,15 +16,17 @@ import Kingfisher
 class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizerDelegate {
 
     var ref: FIRDatabaseReference!
+    
     fileprivate var _authHandle: FIRAuthStateDidChangeListenerHandle!
     var refHandle: UInt!
     var recipeList = [Recipe]()
     var recipeInfo: [String] = []
-    
+    private var databaseHandle: FIRDatabaseHandle!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
+        
         
         let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(SavedRecipeTableViewController.handleLongPress(_:)))
         lpgr.minimumPressDuration = 1
@@ -124,6 +126,45 @@ class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizer
         
     }
     
+    // http://stackoverflow.com/questions/3309484/uitableviewcell-show-delete-button-on-swipe/37719543#37719543
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            let userID: String = (FIRAuth.auth()?.currentUser?.uid)!
+            let userRef = ref.child(userID).child("recipes")
+           
+            let key = userRef.childByAutoId().key
+            print(key)
+            
+//            let recipeDelte = recipeList[indexPath.row]
+            
+            
+//            FIRDatabase.database().reference().child(userID).child("recipes").child(key).removeValue()
+            
+            
+//            userRef.observe(.childRemoved, with: { snapshot in
+//                
+//                
+//                })
+            
+            }
+
+//         remove the item from the data model
+        recipeList.remove(at: indexPath.row)
+        
+//         delete the table view row
+        tableView.deleteRows(at: [indexPath], with: .fade)
+        
+    }
+    
+    func deleteFirebaseData(backendObjectID: String, item: NSMutableDictionary) {
+//        let userRefKey = ref.child(userID).child("recipes").childByAutoId().key
+        
+        
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? IngredientsViewController {
             destination.recipeID = recipeInfo[0]
@@ -134,8 +175,8 @@ class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizer
  
     func fetchRecipeData(){
         self.recipeList.removeAll()
-        
         let userID: String = (FIRAuth.auth()?.currentUser?.uid)!
+
         let userRef = ref.child(userID).child("recipes")
         
         self.refHandle = userRef.observe(.childAdded, with: { (snapshot) in
