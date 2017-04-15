@@ -107,17 +107,17 @@ class RandomViewController: UIViewController {
         if FIRAuth.auth()?.currentUser?.uid == nil {
             showAlert("Need to sign in to facebook to save")
         } else {
-            let userRef = ref.child(userID)
+            let userRef = ref.child(userID).child("recipes").childByAutoId()
             let data = randomSpoonArray[0]
             let revisedImage = randomSpoonArray[0].image.replacingOccurrences(of: "https://spoonacular.com/recipeImages/", with: "")
-            
             let recipePhotoUrlToUse = revisedImage
-            
+            let childAutoID = userRef.key
             //must create dict to push data to firebase
-            let dict = ["id": data.id, "title": data.title, "image": recipePhotoUrlToUse, "readyInMinutes": "\(data.readyInMinutes)"] as [String : Any]
+            let dict = ["id": data.id, "title": data.title, "image": recipePhotoUrlToUse, "readyInMinutes": "\(data.readyInMinutes)", "key": childAutoID] as [String : Any]
             
-            userRef.child("recipes").childByAutoId().setValue(dict)
-            print(userRef.childByAutoId().key)
+            userRef.setValue(dict)
+            
+            print(childAutoID)
         }
 
     }

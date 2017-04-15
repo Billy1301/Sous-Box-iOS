@@ -131,32 +131,25 @@ class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizer
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            let userID: String = (FIRAuth.auth()?.currentUser?.uid)!
-            let userRef = ref.child(userID).child("recipes")
-           
-            let key = userRef.childByAutoId().key
-            print(key)
-            
-//            let recipeDelte = recipeList[indexPath.row]
-            
-            
-//            FIRDatabase.database().reference().child(userID).child("recipes").child(key).removeValue()
-            
-            
-//            userRef.observe(.childRemoved, with: { snapshot in
-//                
-//                
-//                })
-            
+            guard let userID: String = (FIRAuth.auth()?.currentUser?.uid) else {
+                return
             }
-
+            
+            let recipeKey = recipeList[indexPath.row]
+            let userRef = ref.child(userID).child("recipes")
+            
+            let uk = recipeKey.key
+            print(uk)
+            userRef.child(uk).removeValue()
+            
+        }
 //         remove the item from the data model
         recipeList.remove(at: indexPath.row)
         
 //         delete the table view row
         tableView.deleteRows(at: [indexPath], with: .fade)
-        
     }
+    
     
     func deleteFirebaseData(backendObjectID: String, item: NSMutableDictionary) {
 //        let userRefKey = ref.child(userID).child("recipes").childByAutoId().key
@@ -183,7 +176,7 @@ class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizer
             
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 
-                let recipeInfo = Recipe(dictionary: dictionary)    
+                let recipeInfo = Recipe(dictionary: dictionary)
                 self.recipeList.append(recipeInfo)
                 
                 DispatchQueue.main.async {

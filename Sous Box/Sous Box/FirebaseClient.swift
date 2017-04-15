@@ -10,12 +10,19 @@ import UIKit
 import Firebase
 
 class Recipe: NSObject {
-    var userID: String?
+    var _key: String?
     var _id: Int?
     var _image: String?
     var _title: String?
     var _readyInMinutes: String?
     var _imageUrls: String?
+    
+    var key: String {
+        if _key == nil {
+            _key = ""
+        }
+        return _key!
+    }
     
     var id: Int {
         if _id == nil {
@@ -46,11 +53,11 @@ class Recipe: NSObject {
     }
     
     init(dictionary: [String: AnyObject]) {
+        self._key = dictionary["key"] as? String
         self._id = dictionary["id"] as? Int
         self._image = dictionary["image"] as? String
         self._title = dictionary["title"] as? String
         self._readyInMinutes = dictionary["readyInMinutes"] as? String
-//        self._imageUrls = dictionary["imageUrls"]?[0] as? String
     }
     
 }
