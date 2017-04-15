@@ -25,8 +25,8 @@ Mobile version views:<br>
 <img src="http://i.imgur.com/DHzN0Bl.png" width = "150" height = "250">
 <img src="http://i.imgur.com/Op03Bt4.png" width = "150" height = "250">
 <br>
-<img src="http://i.imgur.com/YOO9z1h.png" width = "250" height = "150">
-<img src="http://i.imgur.com/7ZDzcrO.png" width = "250" height = "150">
+<img src="http://i.imgur.com/YOO9z1h.png" width = "150" height = "250">
+<img src="http://i.imgur.com/7ZDzcrO.png" width = "150" height = "250">
 
 
 
