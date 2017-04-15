@@ -22,17 +22,14 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var instructionsBtn: UIButton!
     @IBOutlet weak var shareBtn: UIButton!
     @IBOutlet weak var saveBtnLbl: UIButton!
-    
-    @IBOutlet weak var unSaveBtnLbl: UIButton!
-    
-    
+
     var ingredientSpoon: Spoonacular!
     var ingredientSpoonArray = [Spoonacular]()
-    
     var ref: FIRDatabaseReference!
     var recipeURLShare: String = ""
     var recipeTitle: String = ""
     var readyInMinutes: String = ""
+    var recipeKey: String = ""
     var instructionsArray = [Spoonacular]()
     
     // Getter/Setter to get data from segue
@@ -68,19 +65,7 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
         setFirstUI()
-        
-        if recipeSegueID == "randomSegue" {
-            saveBtnLbl.isEnabled = false
-            saveBtnLbl.isHidden = true
-            unSaveBtnLbl.isEnabled = false
-            unSaveBtnLbl.isHidden = true
-        } else if recipeSegueID == "recipeListSegue" {
-            unSaveBtnLbl.isHidden = true
-            unSaveBtnLbl.isEnabled = false
-        } else if recipeSegueID == "savedSegue" {
-            saveBtnLbl.isEnabled = false
-            saveBtnLbl.isHidden = true
-        }
+        setSaveUnSaveBtn(segueKey: recipeSegueID)
         
         if currentReachabilityStatus != .notReachable {
             if FIRAuth.auth()?.currentUser?.uid == nil {
@@ -90,7 +75,6 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
                     self.ingredientsTableView.reloadData()
                 }
             }
-            
         } else {
             showAlert("No network connection")
         }
@@ -102,28 +86,44 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     @IBAction func saveRecipeBtn(_ sender: Any) {
-   
-        let userID: String = (FIRAuth.auth()?.currentUser?.uid)!
-        let userRef = ref.child(userID)
+        
+        guard let userID: String = (FIRAuth.auth()?.currentUser?.uid) else {
+            return
+        }
+       
+        let userRef = ref.child(userID).child("recipes").childByAutoId()
+        let key = userRef.key
+        
+        if saveBtnLbl.currentTitle == "Save" {
+            saveBtnLbl.setTitle("Un-Save", for: .normal)
             
-        //must create dictionary to push data to firebase
-        //http://stackoverflow.com/questions/38231055/save-array-of-classes-into-firebase-database-using-swift
-        let dict = ["id": Int(recipeID) ?? "", "title": titleLbl.text ?? "", "image": recipePhotoUrl, "readyInMinutes": readyInMinutes] as [String : Any]
+            //must create dictionary to push data to firebase
+            //http://stackoverflow.com/questions/38231055/save-array-of-classes-into-firebase-database-using-swift
+            let dict = ["id": Int(recipeID) ?? "", "title": titleLbl.text ?? "", "image": recipePhotoUrl, "readyInMinutes": readyInMinutes, "key": key] as [String : Any]
             
-        userRef.child("recipes").childByAutoId().setValue(dict)
+            userRef.setValue(dict)
+            print("Saved recipe key: ",key)
+            recipeKey = key
+            print(recipeKey)
+        } else {
+            saveBtnLbl.setTitle("Save", for: .normal)
+            let deleteRef = ref.child(userID).child("recipes")
+            deleteRef.child(recipeKey).removeValue()
+            print("unsaved: ", recipeKey)
+            
+        }
+        
+    }
 
-        print("Saved recipe")
-        
+    func setSaveUnSaveBtn(segueKey: String) {
+        if segueKey == "recipeListSegue" {
+            saveBtnLbl.isEnabled = true
+            saveBtnLbl.isHidden = false
+        } else {
+            saveBtnLbl.isEnabled = false
+            saveBtnLbl.isHidden = true
+        }
     }
-    
-    
-    @IBAction func unSaveBtnPressed(_ sender: Any) {
-        
-        //create func to delete from firebase database
-        
-    }
-    
-    
     
     // download recipe data and plug into UI
     func downloadRecipeDetails(recipeID: String, completed: @escaping DownloadComplete) {
@@ -156,6 +156,9 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
                     self.readyInMinutes = "\(readyInMin)"
                 }
                 
+//                if let recipeKeyID = dict["key"] as? String {
+//                    self.recipeKey = recipeKeyID
+//                }
                 
                 if let instruction = dict["instructions"] as? String {
                     let filterInstrction = instruction.replacingOccurrences(of: ". ", with: ".\n\n")

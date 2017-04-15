@@ -145,30 +145,13 @@
                                             <action selector="saveRecipeBtn:" destination="Pw1-Ym-DGK" eventType="touchUpInside" id="k8o-x1-Fqs"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Fb-Vd-gHM" userLabel="UnSave">
-                                        <rect key="frame" x="309" y="25" width="97" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="97" id="pLa-9h-uNO"/>
-                                        </constraints>
-                                        <state key="normal" title="Un-Save">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="saveRecipeBtn:" destination="Pw1-Ym-DGK" eventType="touchUpInside" id="SGl-Ig-0hb"/>
-                                            <action selector="unSaveBtnPressed:" destination="Pw1-Ym-DGK" eventType="touchUpInside" id="Xvr-J0-xjj"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.050980392159999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="dPy-iD-N9I" secondAttribute="bottom" constant="15" id="1OR-rG-tlg"/>
                                     <constraint firstItem="2G7-fN-ity" firstAttribute="leading" secondItem="oIf-h9-mXc" secondAttribute="trailing" constant="44" id="AXj-cj-Phf"/>
-                                    <constraint firstItem="3Fb-Vd-gHM" firstAttribute="leading" secondItem="2G7-fN-ity" secondAttribute="trailing" id="EmP-EI-YHV"/>
-                                    <constraint firstItem="3Fb-Vd-gHM" firstAttribute="top" secondItem="ohx-NB-dqW" secondAttribute="top" constant="25" id="HYS-Rj-O7n"/>
                                     <constraint firstItem="dPy-iD-N9I" firstAttribute="top" secondItem="ohx-NB-dqW" secondAttribute="top" constant="25" id="KS0-Ky-SEx"/>
                                     <constraint firstItem="oIf-h9-mXc" firstAttribute="top" secondItem="ohx-NB-dqW" secondAttribute="top" constant="25" id="Sr7-nl-saA"/>
-                                    <constraint firstAttribute="trailing" secondItem="3Fb-Vd-gHM" secondAttribute="trailing" constant="8" id="XM8-EE-n2x"/>
-                                    <constraint firstAttribute="bottom" secondItem="3Fb-Vd-gHM" secondAttribute="bottom" constant="15" id="aZW-I3-RCu"/>
                                     <constraint firstAttribute="height" constant="60" id="cuM-jZ-5kR"/>
                                     <constraint firstItem="oIf-h9-mXc" firstAttribute="leading" secondItem="ohx-NB-dqW" secondAttribute="leading" constant="8" id="htC-CN-rU5"/>
                                     <constraint firstAttribute="bottom" secondItem="2G7-fN-ity" secondAttribute="bottom" constant="16" id="pOE-sv-cKv"/>
@@ -307,7 +290,6 @@
                         <outlet property="saveBtnLbl" destination="dPy-iD-N9I" id="iDl-6H-3Iy"/>
                         <outlet property="shareBtn" destination="clX-Wl-zOd" id="1gh-VE-oS6"/>
                         <outlet property="titleLbl" destination="JJr-qm-iJB" id="bB5-xW-m3d"/>
-                        <outlet property="unSaveBtnLbl" destination="3Fb-Vd-gHM" id="6YG-EM-iIe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GoG-1b-zSK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -318,7 +300,7 @@
         <scene sceneID="PLW-pG-4ox">
             <objects>
                 <navigationController id="Nla-2j-jdt" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="tFQ-fe-euD">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="tFQ-fe-euD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.59999999999999998" green="0.050980392159999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

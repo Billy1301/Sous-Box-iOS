@@ -22,7 +22,6 @@ class RandomViewController: UIViewController {
     var recipeInfoID: String = ""
     var recipeInfo: [String] = []
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
@@ -33,22 +32,19 @@ class RandomViewController: UIViewController {
             recipeImage.isUserInteractionEnabled = true
             
             self.downloadRecipeData {
-//                print("Download success")
+
             }
         } else {
             showAlert("No network connection")
         }
-
     }
-
     
     @IBAction func likeBtnPressed(_ sender: Any) {
-        // need to setup 
+       
         sendToFirebaseDatabase()
         downloadRecipeData {
             
         }
-        
     }
     
     @IBAction func dislikeBtnPressed(_ sender: Any) {
@@ -99,8 +95,6 @@ class RandomViewController: UIViewController {
         }
     }
     
-    
-    
     func sendToFirebaseDatabase(){
         
         let userID: String = (FIRAuth.auth()?.currentUser?.uid)!
@@ -116,8 +110,7 @@ class RandomViewController: UIViewController {
             let dict = ["id": data.id, "title": data.title, "image": recipePhotoUrlToUse, "readyInMinutes": "\(data.readyInMinutes)", "key": childAutoID] as [String : Any]
             
             userRef.setValue(dict)
-            
-            print(childAutoID)
+        
         }
 
     }
