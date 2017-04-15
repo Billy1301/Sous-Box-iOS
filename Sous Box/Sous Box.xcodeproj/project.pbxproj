@@ -21,7 +21,6 @@
 		288001431E808FCE00877620 /* SavedRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288001421E808FCE00877620 /* SavedRecipeCell.swift */; };
 		2884104A1E9AF0870016A4A0 /* SavedRecipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288410491E9AF0870016A4A0 /* SavedRecipeTableViewController.swift */; };
 		28D3BCC11E7B3D8400F98E06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D3BCC01E7B3D8400F98E06 /* AppDelegate.swift */; };
-		28D3BCC31E7B3D8400F98E06 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D3BCC21E7B3D8400F98E06 /* TabBarViewController.swift */; };
 		28D3BCC61E7B3D8400F98E06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28D3BCC41E7B3D8400F98E06 /* Main.storyboard */; };
 		28D3BCC81E7B3D8400F98E06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28D3BCC71E7B3D8400F98E06 /* Assets.xcassets */; };
 		28D3BCCB1E7B3D8400F98E06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28D3BCC91E7B3D8400F98E06 /* LaunchScreen.storyboard */; };
@@ -44,7 +43,6 @@
 		288410491E9AF0870016A4A0 /* SavedRecipeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedRecipeTableViewController.swift; sourceTree = "<group>"; };
 		28D3BCBD1E7B3D8400F98E06 /* Sous Box.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sous Box.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		28D3BCC01E7B3D8400F98E06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		28D3BCC21E7B3D8400F98E06 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		28D3BCC51E7B3D8400F98E06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		28D3BCC71E7B3D8400F98E06 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		28D3BCCA1E7B3D8400F98E06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -123,7 +121,6 @@
 		28D3BCD21E7B3D9000F98E06 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				28D3BCC21E7B3D8400F98E06 /* TabBarViewController.swift */,
 				2876D3881E81DF4A00134CC2 /* SettingViewController.swift */,
 				281630E41E8C1C2A00667D1C /* RecipeTableViewController.swift */,
 				283AF9051E8EFEA90054A087 /* IngredientsViewController.swift */,
@@ -310,7 +307,6 @@
 				283AF9061E8EFEA90054A087 /* IngredientsViewController.swift in Sources */,
 				28F1CC761E8D873E00F89CC3 /* Network.swift in Sources */,
 				288001431E808FCE00877620 /* SavedRecipeCell.swift in Sources */,
-				28D3BCC31E7B3D8400F98E06 /* TabBarViewController.swift in Sources */,
 				2884104A1E9AF0870016A4A0 /* SavedRecipeTableViewController.swift in Sources */,
 				28D3BCC11E7B3D8400F98E06 /* AppDelegate.swift in Sources */,
 			);

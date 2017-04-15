@@ -40,10 +40,13 @@ class RandomViewController: UIViewController {
     }
     
     @IBAction func likeBtnPressed(_ sender: Any) {
-       
-        sendToFirebaseDatabase()
-        downloadRecipeData {
-            
+        if FIRAuth.auth()?.currentUser?.uid == nil {
+            showAlert("Need to sign in to Facebook to save")
+        } else {
+            sendToFirebaseDatabase()
+            downloadRecipeData {
+                
+            }
         }
     }
     
@@ -60,6 +63,8 @@ class RandomViewController: UIViewController {
             
         }
     }
+    
+    // MARK: - Fetch Firebase Data
     
     func downloadRecipeData(completed: @escaping DownloadComplete) {
         randomSpoonArray.removeAll()
@@ -97,26 +102,33 @@ class RandomViewController: UIViewController {
     
     func sendToFirebaseDatabase(){
         
-        let userID: String = (FIRAuth.auth()?.currentUser?.uid)!
+        guard let userID: String = (FIRAuth.auth()?.currentUser?.uid) else {
+            return
+        }
+
         if FIRAuth.auth()?.currentUser?.uid == nil {
             showAlert("Need to sign in to facebook to save")
         } else {
             let userRef = ref.child(userID).child("recipes").childByAutoId()
             let data = randomSpoonArray[0]
+            
+            // remove the first half of the link to save to firebase to work for favorite tab
             let revisedImage = randomSpoonArray[0].image.replacingOccurrences(of: "https://spoonacular.com/recipeImages/", with: "")
             let recipePhotoUrlToUse = revisedImage
+            
             let childAutoID = userRef.key
+            
             //must create dict to push data to firebase
             let dict = ["id": data.id, "title": data.title, "image": recipePhotoUrlToUse, "readyInMinutes": "\(data.readyInMinutes)", "key": childAutoID] as [String : Any]
             
             userRef.setValue(dict)
-        
         }
-
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? IngredientsViewController {
+            
+            //setting the getter/setter for ingredients VC to populate correctly
             destination.recipeID = recipeInfo[0]
             destination.recipePhotoUrl = recipeInfo[1]
             destination.recipeSegueID = recipeInfo[2]
@@ -124,6 +136,8 @@ class RandomViewController: UIViewController {
     }
 }
 
+
+// create extension for alert to use throughtout the project
 extension UIViewController {
     func showAlert(_ error : String){
         let alert = UIAlertController(title: "Alert", message: error, preferredStyle: UIAlertControllerStyle.alert)

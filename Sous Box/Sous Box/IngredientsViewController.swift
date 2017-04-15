@@ -65,20 +65,15 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
         setFirstUI()
-        setSaveUnSaveBtn(segueKey: recipeSegueID)
+        self.setSaveUnSaveBtn(segueKey: recipeSegueID)
         
         if currentReachabilityStatus != .notReachable {
-            if FIRAuth.auth()?.currentUser?.uid == nil {
-                showAlert("Need to sign in to facebook to save")
-            } else {
-                self.downloadRecipeDetails(recipeID: recipeID){
-                    self.ingredientsTableView.reloadData()
-                }
+            self.downloadRecipeDetails(recipeID: recipeID){
+                self.ingredientsTableView.reloadData()
             }
         } else {
             showAlert("No network connection")
         }
-       
     }
     
     @IBAction func backBtn(_ sender: Any) {
@@ -94,25 +89,31 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
         let userRef = ref.child(userID).child("recipes").childByAutoId()
         let key = userRef.key
         
-        if saveBtnLbl.currentTitle == "Save" {
-            saveBtnLbl.setTitle("Un-Save", for: .normal)
+        if FIRAuth.auth()?.currentUser?.uid == nil {
             
-            //must create dictionary to push data to firebase
-            //http://stackoverflow.com/questions/38231055/save-array-of-classes-into-firebase-database-using-swift
-            let dict = ["id": Int(recipeID) ?? "", "title": titleLbl.text ?? "", "image": recipePhotoUrl, "readyInMinutes": readyInMinutes, "key": key] as [String : Any]
+            showAlert("Must sign in to Facebook to use")
             
-            userRef.setValue(dict)
-            print("Saved recipe key: ",key)
-            recipeKey = key
-            print(recipeKey)
-        } else {
-            saveBtnLbl.setTitle("Save", for: .normal)
-            let deleteRef = ref.child(userID).child("recipes")
-            deleteRef.child(recipeKey).removeValue()
-            print("unsaved: ", recipeKey)
+            } else {
             
+            if saveBtnLbl.currentTitle == "Save" {
+                saveBtnLbl.setTitle("Un-Save", for: .normal)
+                
+                //must create dictionary to push data to firebase
+                //http://stackoverflow.com/questions/38231055/save-array-of-classes-into-firebase-database-using-swift
+                let dict = ["id": Int(recipeID) ?? "", "title": titleLbl.text ?? "", "image": recipePhotoUrl, "readyInMinutes": readyInMinutes, "key": key] as [String : Any]
+                
+                userRef.setValue(dict)
+                print("Saved recipe key: ",key)
+                recipeKey = key
+                print(recipeKey)
+            } else {
+                saveBtnLbl.setTitle("Save", for: .normal)
+                let deleteRef = ref.child(userID).child("recipes")
+                deleteRef.child(recipeKey).removeValue()
+                print("unsaved: ", recipeKey)
+                
+            }
         }
-        
     }
 
     func setSaveUnSaveBtn(segueKey: String) {
@@ -188,6 +189,8 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
         setUIBtn(image: #imageLiteral(resourceName: "cooking"), button: instructionsBtn, color: .gray)
         setUIBtn(image: #imageLiteral(resourceName: "share"), button: shareBtn, color: .gray)
         instructionsTextView.isHidden = true
+        saveBtnLbl.isEnabled = false
+        saveBtnLbl.isHidden = true
     }
     
     func setUIBtn(image: UIImage, button: UIButton, color: UIColor){

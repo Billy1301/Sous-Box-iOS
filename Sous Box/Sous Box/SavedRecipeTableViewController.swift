@@ -16,8 +16,6 @@ import Kingfisher
 class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizerDelegate {
 
     var ref: FIRDatabaseReference!
-    
-    fileprivate var _authHandle: FIRAuthStateDidChangeListenerHandle!
     var refHandle: UInt!
     var recipeList = [Recipe]()
     var recipeInfo: [String] = []
@@ -26,13 +24,6 @@ class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizer
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
-        
-        
-        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(SavedRecipeTableViewController.handleLongPress(_:)))
-        lpgr.minimumPressDuration = 1
-        lpgr.delaysTouchesBegan = true
-        lpgr.delegate = self
-        self.tableView.addGestureRecognizer(lpgr)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,25 +43,6 @@ class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizer
         
     }
     
-    func handleLongPress(_ gestureReconizer: UILongPressGestureRecognizer) {
-        if gestureReconizer.state != UIGestureRecognizerState.ended {
-            return
-        }
-        
-        let p = gestureReconizer.location(in: self.tableView)
-        let indexPath = self.tableView.indexPathForRow(at: p)
-        
-        if let index = indexPath {
-//            var row = self.tableView.cellForRow(at: index)
-            // do stuff with your cell, for example print the indexPath
-        
-            print("Removed: ", index.row)
-        } else {
-            
-        }
-    }
-    
-    
     func logoutFirebase(){
         do {
             try FIRAuth.auth()?.signOut()
@@ -79,22 +51,6 @@ class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizer
         }
     }
     
-    // to get user info
-    func getUserInfo(){
-        let accessToken = FBSDKAccessToken.current()
-        guard let accessTokenString = accessToken?.tokenString else { return }
-        let credential = FIRFacebookAuthProvider.credential(withAccessToken: accessTokenString)
-        FIRAuth.auth()?.signIn(with: credential, completion: { (user, error) in
-            if error != nil {
-                print("Something went wrong: ", error ?? "")
-                return
-            }
-            print("user info: ", user?.uid ?? "")
-        })
-    }
-    
-    
-
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -122,10 +78,9 @@ class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizer
         let dataClick = recipeList[indexPath.row]
         recipeInfo = ["\(dataClick.id)", dataClick.image, "savedSegue"]
         self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfo)
-        
-        
     }
     
+    // deleting row and firebase data
     // http://stackoverflow.com/questions/3309484/uitableviewcell-show-delete-button-on-swipe/37719543#37719543
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -137,9 +92,7 @@ class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizer
             
             let recipeKey = recipeList[indexPath.row]
             let userRef = ref.child(userID).child("recipes")
-            
             let uk = recipeKey.key
-            print(uk)
             userRef.child(uk).removeValue()
             
         }
@@ -150,14 +103,6 @@ class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizer
         tableView.deleteRows(at: [indexPath], with: .fade)
     }
     
-    
-    func deleteFirebaseData(backendObjectID: String, item: NSMutableDictionary) {
-//        let userRefKey = ref.child(userID).child("recipes").childByAutoId().key
-        
-        
-    }
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? IngredientsViewController {
             destination.recipeID = recipeInfo[0]
@@ -165,13 +110,20 @@ class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizer
             destination.recipeSegueID = recipeInfo[2]
         }
     }
+    
+    // MARK: - Fetch Firebase Data
  
+    //getting data from firebase
     func fetchRecipeData(){
+        
+        // remove list first for search function to work properly
         self.recipeList.removeAll()
-        let userID: String = (FIRAuth.auth()?.currentUser?.uid)!
+        
+        guard let userID: String = (FIRAuth.auth()?.currentUser?.uid) else {
+            return
+        }
 
         let userRef = ref.child(userID).child("recipes")
-        
         self.refHandle = userRef.observe(.childAdded, with: { (snapshot) in
             
             if let dictionary = snapshot.value as? [String: AnyObject] {
@@ -179,6 +131,7 @@ class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizer
                 let recipeInfo = Recipe(dictionary: dictionary)
                 self.recipeList.append(recipeInfo)
                 
+                //use dispatchqueue to reloaddata or it will crash
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }

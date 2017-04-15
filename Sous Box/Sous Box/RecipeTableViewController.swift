@@ -37,6 +37,8 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
+    // MARK: - API Call
+    
     func downloadRecipeData(search: String, completed: @escaping DownloadComplete) {
     
         let search_keywords = search.replacingOccurrences(of: " ", with: "+")
@@ -61,7 +63,7 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     
-    // search function
+    // MARK: - Search function
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         inSearchMode = true
@@ -108,12 +110,6 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
         self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfo)
     }
     
-    
-    func getRecipeDetail() {
-        let vc1 = self.storyboard!.instantiateViewController(withIdentifier: "IngredientsVC") as! IngredientsViewController
-        self.present(vc1, animated:true, completion: nil)
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? IngredientsViewController {
             destination.recipeID = recipeInfo[0]
@@ -123,6 +119,8 @@ class RecipeTableViewController: UITableViewController, UISearchBarDelegate {
     }
 
 }
+
+// extension to use for hiding keyboard
 
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {

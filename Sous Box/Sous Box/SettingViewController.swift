@@ -21,7 +21,6 @@ class SettingViewController: UIViewController, FBSDKLoginButtonDelegate {
         facebookButton.addSubview(FBloginBtn)
         FBloginBtn.frame = CGRect(x: 0, y: 0, width: view.frame.width - 32, height: 50)
         FBloginBtn.delegate = self
-        
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
