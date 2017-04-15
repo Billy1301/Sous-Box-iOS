@@ -27,6 +27,7 @@ class RandomViewController: UIViewController {
         ref = FIRDatabase.database().reference()
         
         if currentReachabilityStatus != .notReachable {
+            // create tap gesture for photo
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(RandomViewController.imageTapped(gesture:)))
             recipeImage.addGestureRecognizer(tapGesture)
             recipeImage.isUserInteractionEnabled = true

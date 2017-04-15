@@ -40,7 +40,6 @@ class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizer
         } else {
             showAlert("No network connection")
         }
-        
     }
     
     func logoutFirebase(){

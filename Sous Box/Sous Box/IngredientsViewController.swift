@@ -88,31 +88,20 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
        
         let userRef = ref.child(userID).child("recipes").childByAutoId()
         let key = userRef.key
-        
-        if FIRAuth.auth()?.currentUser?.uid == nil {
-            
-            showAlert("Must sign in to Facebook to use")
-            
-            } else {
-            
-            if saveBtnLbl.currentTitle == "Save" {
-                saveBtnLbl.setTitle("Un-Save", for: .normal)
+
+        if saveBtnLbl.currentTitle == "Save" {
+            saveBtnLbl.setTitle("Un-Save", for: .normal)
                 
-                //must create dictionary to push data to firebase
-                //http://stackoverflow.com/questions/38231055/save-array-of-classes-into-firebase-database-using-swift
-                let dict = ["id": Int(recipeID) ?? "", "title": titleLbl.text ?? "", "image": recipePhotoUrl, "readyInMinutes": readyInMinutes, "key": key] as [String : Any]
-                
-                userRef.setValue(dict)
-                print("Saved recipe key: ",key)
-                recipeKey = key
-                print(recipeKey)
-            } else {
-                saveBtnLbl.setTitle("Save", for: .normal)
-                let deleteRef = ref.child(userID).child("recipes")
-                deleteRef.child(recipeKey).removeValue()
-                print("unsaved: ", recipeKey)
-                
-            }
+            //must create dictionary to push data to firebase
+            //http://stackoverflow.com/questions/38231055/save-array-of-classes-into-firebase-database-using-swift
+            let dict = ["id": Int(recipeID) ?? "", "title": titleLbl.text ?? "", "image": recipePhotoUrl, "readyInMinutes": readyInMinutes, "key": key] as [String : Any]
+            
+            userRef.setValue(dict)
+            recipeKey = key
+        } else {
+            saveBtnLbl.setTitle("Save", for: .normal)
+            let deleteRef = ref.child(userID).child("recipes")
+            deleteRef.child(recipeKey).removeValue()
         }
     }
 
@@ -121,6 +110,11 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
             saveBtnLbl.isEnabled = true
             saveBtnLbl.isHidden = false
         } else {
+            saveBtnLbl.isEnabled = false
+            saveBtnLbl.isHidden = true
+        }
+        
+        if FIRAuth.auth()?.currentUser?.uid == nil {
             saveBtnLbl.isEnabled = false
             saveBtnLbl.isHidden = true
         }
@@ -134,7 +128,6 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
         Alamofire.request(currentRecipeURL, method: .get, headers: HEADERS).responseJSON { response in
             
             let result = response.result
-//            print(response)
             
             if let dict = result.value as? Dictionary<String, AnyObject> {
                 
@@ -157,17 +150,12 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
                     self.readyInMinutes = "\(readyInMin)"
                 }
                 
-//                if let recipeKeyID = dict["key"] as? String {
-//                    self.recipeKey = recipeKeyID
-//                }
-                
                 if let instruction = dict["instructions"] as? String {
                     let filterInstrction = instruction.replacingOccurrences(of: ". ", with: ".\n\n")
                     self.instructionsTextView.text = filterInstrction
                     
                     if filterInstrction == "" || filterInstrction == " " {
                         self.instructionsTextView.text = self.recipeURLShare
-//                        print(self.recipeURLShare)
                     }
                 }
                 
@@ -189,8 +177,6 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
         setUIBtn(image: #imageLiteral(resourceName: "cooking"), button: instructionsBtn, color: .gray)
         setUIBtn(image: #imageLiteral(resourceName: "share"), button: shareBtn, color: .gray)
         instructionsTextView.isHidden = true
-        saveBtnLbl.isEnabled = false
-        saveBtnLbl.isHidden = true
     }
     
     func setUIBtn(image: UIImage, button: UIButton, color: UIColor){
@@ -237,9 +223,7 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
                 }
             }
             present(activityViewController, animated: true, completion: {})
-
         }
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
