@@ -14,7 +14,6 @@ class Spoonacular {
     var _title: String!
     var _id: Int!
     var _image: String!
-//    var _imageUrls: String!
     var _readyInMinutes: Int!
     
     
@@ -84,12 +83,6 @@ class Spoonacular {
         return _image
     }
     
-//    var imageUrls: String {
-//        if _imageUrls == nil {
-//            _imageUrls = ""
-//        }
-//        return _imageUrls
-//    }
     
     var originalString: String {
         if _originalString == nil {
@@ -116,9 +109,6 @@ class Spoonacular {
             self._readyInMinutes = readyInMinutes
         }
         
-//        if let imageUrls = getRecipeLists["imageUrls"] as? String {
-//            self._imageUrls = imageUrls
-//        }
     }
     
     init(getIngredients: Dictionary<String, AnyObject>) {

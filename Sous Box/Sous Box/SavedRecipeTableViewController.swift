@@ -27,6 +27,7 @@ class SavedRecipeTableViewController: UITableViewController, UIGestureRecognizer
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         if currentReachabilityStatus != .notReachable {
             if FIRAuth.auth()?.currentUser?.uid == nil {
