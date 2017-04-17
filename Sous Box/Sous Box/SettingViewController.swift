@@ -29,6 +29,8 @@ class SettingViewController: UIViewController, FBSDKLoginButtonDelegate {
         do {
             try firebaseAuth?.signOut()
         } catch let signOutError as NSError {
+            
+            showAlert("Error signing out")
             print ("Error signing out: %@", signOutError)
         }
     }
@@ -36,6 +38,7 @@ class SettingViewController: UIViewController, FBSDKLoginButtonDelegate {
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!){
         
         let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+    
         FIRAuth.auth()?.signIn(with: credential) { (user, error) in
             
             if let error = error {

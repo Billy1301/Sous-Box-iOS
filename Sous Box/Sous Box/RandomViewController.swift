@@ -60,7 +60,7 @@ class RandomViewController: UIViewController {
     func imageTapped(gesture: UIGestureRecognizer) {
         
         if (gesture.view as? UIImageView) != nil {
-            self.performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfo)
+            performSegue(withIdentifier: "IngredientsSegue", sender: recipeInfo)
             
         }
     }
