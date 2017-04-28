@@ -5,7 +5,7 @@ A Chef Helper App
 
 <html>
 <body>
-A recipe app that randomly show a popular recipe for the user to like or dislike. The app have a tab to display a list of recipes for the user and able to search for specific food type. <br>
+A recipe app that randomly shows a popular recipe for the user to like or dislike. The app has a tab to display a list of recipes for the user and able to search for specific food type. <br>
 
 ----------------------
 
