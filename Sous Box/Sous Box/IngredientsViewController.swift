@@ -173,17 +173,13 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
     
     func setFirstUI(){
         
-        setUIBtn(image: #imageLiteral(resourceName: "lists"), button: ingredientsBtn, color: .white)
-        setUIBtn(image: #imageLiteral(resourceName: "cooking"), button: instructionsBtn, color: .gray)
-        setUIBtn(image: #imageLiteral(resourceName: "share"), button: shareBtn, color: .gray)
+        setUIBtn(button: ingredientsBtn, color: .white)
+        setUIBtn(button: instructionsBtn, color: .gray)
+        setUIBtn(button: shareBtn, color: .gray)
         instructionsTextView.isHidden = true
     }
     
-    func setUIBtn(image: UIImage, button: UIButton, color: UIColor){
-        
-        let origImage = image
-        let tintedImage = origImage.withRenderingMode(.alwaysTemplate)
-        button.setImage(tintedImage, for: .normal)
+    func setUIBtn(button: UIButton, color: UIColor){
         button.tintColor = color
         button.setTitleColor(color, for: .normal)
         
@@ -198,19 +194,19 @@ class IngredientsViewController: UIViewController, UITableViewDelegate, UITableV
         if senderButton === ingredientsBtn {
             ingredientsTableView.isHidden = !isIngredientsView
             instructionsTextView.isHidden = isIngredientsView
-            setUIBtn(image: #imageLiteral(resourceName: "lists"), button: ingredientsBtn, color: .white)
-            setUIBtn(image: #imageLiteral(resourceName: "cooking"), button: instructionsBtn, color: .gray)
-            setUIBtn(image: #imageLiteral(resourceName: "share"), button: shareBtn, color: .gray)
+            setUIBtn(button: ingredientsBtn, color: .white)
+            setUIBtn(button: instructionsBtn, color: .gray)
+            setUIBtn(button: shareBtn, color: .gray)
         } else if senderButton === instructionsBtn {
             ingredientsTableView.isHidden = isIngredientsView
             instructionsTextView.isHidden = !isIngredientsView
-            setUIBtn(image: #imageLiteral(resourceName: "lists"), button: ingredientsBtn, color: .gray)
-            setUIBtn(image: #imageLiteral(resourceName: "cooking"), button: instructionsBtn, color: .white)
-            setUIBtn(image: #imageLiteral(resourceName: "share"), button: shareBtn, color: .gray)
+            setUIBtn(button: ingredientsBtn, color: .gray)
+            setUIBtn(button: instructionsBtn, color: .white)
+            setUIBtn(button: shareBtn, color: .gray)
         } else if senderButton === shareBtn {
-            setUIBtn(image: #imageLiteral(resourceName: "lists"), button: ingredientsBtn, color: .gray)
-            setUIBtn(image: #imageLiteral(resourceName: "cooking"), button: instructionsBtn, color: .gray)
-            setUIBtn(image: #imageLiteral(resourceName: "share"), button: shareBtn, color: .white)
+            setUIBtn(button: ingredientsBtn, color: .gray)
+            setUIBtn(button: instructionsBtn, color: .gray)
+            setUIBtn(button: shareBtn, color: .white)
             
             
             // pull up action to share 
